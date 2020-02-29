@@ -2,7 +2,8 @@ from bs4 import BeautifulSoup
 
 import requests
 
-from collections import Counter
+import re
+
 
 class RecipeFetcher:
 
@@ -22,23 +23,41 @@ class RecipeFetcher:
 
         page_html = requests.get(recipe_url)
         page_graph = BeautifulSoup(page_html.content)
-        # recipe-directions__list--item
-        found = page_graph.find_all(itemprop = "recipeIngredient")
-        found2 = page_graph.find('class' == "recipe-directions__list--item")
-        print(found2)
-        ing = []
-        for ingredient in found:
-          ing.append(ingredient.text)
-        print(ing)
-        
-        # results['ingredients'] = # Fill out this list comprehension and get each element's text
 
-        # results['directions'] = # Fill out this list comprehension and get each element's text
-        
+        results['ingredients'] = [ingredient.text for ingredient in\
+                                  page_graph.find_all('span', {'itemprop':'recipeIngredient'})]
+
+        results['directions'] = [direction.text.strip() for direction in\
+                                 page_graph.find_all('span', {'class':'recipe-directions__list--item'})
+                                 if direction.text.strip()]
+
+        results['nutrition'] = self.scrape_nutrition_facts(recipe_url)
+
+        return results
+    
+    def scrape_nutrition_facts(self, recipe_url):
+        results = []
+
+        nutrition_facts_url = '%s/fullrecipenutrition' %(recipe_url)
+
+        page_html = requests.get(nutrition_facts_url)
+        page_graph = BeautifulSoup(page_html.content)
+
+        r = re.compile("([0-9]*\.?[0-9]*)([a-zA-Z]+)")
+
+        # for nutrient_row in <ITERATE_OVER_EACH_NUTRIENT>:
+        #     nutrient = {}
+
+        #     # Fill out this to scrape and return:
+        #     # nutrient['name'], nutrient['amount'],
+        #     # nutrient['unit'], nutrient['daily_value']
+            
+        #     results.append(nutrient)
+
         return results
 
-    
+
 rf = RecipeFetcher()
 meat_lasagna = rf.search_recipes('meat lasagna')[0]
-print(meat_lasagna)
-rf.scrape_recipe(meat_lasagna)
+res = rf.scrape_recipe(meat_lasagna)
+# print(res)
