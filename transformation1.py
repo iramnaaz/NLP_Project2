@@ -166,8 +166,28 @@ def VegetarianTransformFrom (recipe):
 
 
 def IndianCuisineTransformTo (recipe):
+	recipe['Ingredients'].append({'Name': "Kabuli chana", 'Quantity': 2, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+	recipe['Ingredients'].append({'Name': "Garam Masala", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+	#recipe['Ingredients'].append({'Name': "Coriander Chutney", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
 
-	
+	for key, value in recipe.items():
+		if key == "Ingredients":
+			for ing in value: #value is array, ing are the ingrediants
+				#print(ing)
+				for key1, value1 in ing.items():
+					#print(ings)
+					if type(value1) == str:
+						if any (x in value1 for x in my_breads): #replace bread with naan
+							ing[key1] = "naan"
+						if any(x in value1 for x in my_sauces):
+							ing[key1] = "coriander chutney"
+						if "butter" in value1:
+							ing[key1] = "ghee"
+						if "oil" in value1:
+							ing[key1] = "mustard oil"
+		if key == "Methods":
+			for methods in value: 
+				if any (x in methods for x in cooking_methods):
 
 
 
