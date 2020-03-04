@@ -21,16 +21,28 @@ class RecipeFetcher:
     def scrape_recipe(self, recipe_url):
         results = {}
         nutrition = {}
-        
         page_html = requests.get(recipe_url)
         page_graph = BeautifulSoup(page_html.content)
-
         results['ingredients'] = [ingredient.text for ingredient in\
                                   page_graph.find_all('span', {'itemprop':'recipeIngredient'})]
+
+        if(results['ingredients'] == []):
+            results['ingredients'] = [ingredient.text.strip("\n").strip() for ingredient in\
+                                  page_graph.find_all('span', {'class':'ingredients-item-name'})]
 
         results['directions'] = [direction.text.strip() for direction in\
                                  page_graph.find_all('span', {'class':'recipe-directions__list--item'})
                                  if direction.text.strip()]
+
+        if(results['directions'] == []):
+            direc = []
+            for x in page_graph.find_all('li', {'class':'subcontainer instructions-section-item'}):
+                s = x.find('p').text.rstrip("\n")
+                direc.append(s.strip())
+            results['directions'] = direc
+            # results['directions'] = [direction.text.strip() for direction in\
+            #                      page_graph.find_all('li', {'class':'subcontainer instructions-section-item'})
+            #                      if direction.text.strip()]
 
         results["nutrition"] = nutrition
         results["nutrition"]["calories"] = [ncal.text.strip() for ncal in
@@ -70,7 +82,7 @@ class RecipeFetcher:
         return results
 
 
-rf = RecipeFetcher()
-meat_lasagna = rf.search_recipes('meat lasagna')[0]
-res = rf.scrape_recipe(meat_lasagna)
+# rf = RecipeFetcher()
+# meat_lasagna = rf.search_recipes('meat lasagna')[0]
+# res = rf.scrape_recipe(meat_lasagna)
 # print(res)

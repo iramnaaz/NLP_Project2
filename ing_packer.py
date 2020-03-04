@@ -3,9 +3,9 @@ import re
 unit_white_list = ['teaspoon', 'tablespoon', 'fluid ounce', 'ounce', 'cup', 'pint', 'quart', 'gallon',
 'milliliter', 'liter', 'pound', 'milligram', 'kilogram', 'gram', 'millimeter', 'centimeter', 'meter', 'inch', 'to taste']
 
-bad_phrase = ['to taste', '(', ')', '/']
+bad_phrase = ['to taste', '(', ')', '/', '\\n', ', or']
 
-preparations = ['chopped', 'minced', 'diced', 'grated', 'sliced']
+preparations = ['chopped', 'minced', 'diced', 'grated', 'sliced', 'halved']
 
 def make_ing_list(ingredients):
 	ingredient_list = []

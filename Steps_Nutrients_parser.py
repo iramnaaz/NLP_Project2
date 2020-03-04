@@ -43,7 +43,7 @@ class RecipeFetcher:
         return results
 
 
-rf = RecipeFetcher()
-meat_lasagna = rf.search_recipes('meat lasagna')[0]
-print(meat_lasagna)
-rf.scrape_recipe(meat_lasagna)
+# rf = RecipeFetcher()
+# meat_lasagna = rf.search_recipes('meat lasagna')[0]
+# print(meat_lasagna)
+# rf.scrape_recipe(meat_lasagna)
