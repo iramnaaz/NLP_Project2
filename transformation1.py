@@ -165,12 +165,11 @@ def VegetarianTransformFrom (recipe):
 
 
 
-def IndianCuisineTransformTo (recipe):
+def IndianTransformToV2 (recipe):
 	masala = random.choice(my_masalas)
 	#recipe['Ingredients'].append({'Name': "Garam Masala", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
-	for tools in recipe['Tools']:
-		if not "frying pan" in tools.lower():
-			recipe['Tools'].append("frying pan")
+	if not "frying pan" in recipe['Tools']:
+		recipe['Tools'].append("frying pan")
 	#recipe['Ingredients'].append({'Name': "Coriander Chutney", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
 
 	cooked_val = 0
@@ -214,8 +213,43 @@ def IndianCuisineTransformTo (recipe):
 				if "rice" in value2.lower():
 					value[key2] = value2.replace("rice", "biryani")
 
+	for methods in recipe['Methods']: 
+		if any (x in methods for x in cooking_methods):
+			cooked_val = 1
+
+	if cooked_val == 1:
+		recipe['Ingredients'].append({'Name': masala, 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+		recipe['Steps']['Added Step 1'] = 'Take the .5 cups of ' + masala + ' masala and pour into the frying pan. Fry over medium heat in 3 tablespoons of mustard oil for 10 minutes until browning occurs.' 
+		recipe['Steps']['Added Step 2'] = 'When the ' + masala + ' masala is finished frying, mix it into the rest of the dish.'
+		if not "frying pan" in recipe['Tools']:
+			recipe['Tools'].append('frying pan')
+		if not "fry" in recipe['Methods']:
+			recipe['Methods'].append('fry')
+
+	if cooked_val == 0:
+		recipe['Ingredients'].append({'Name': masala, 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+		recipe['Ingredients'].append({'Name': "Kabuli chana", 'Quantity': 1, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+		#recipe['Ingredients'].append({'Name': "tomato ", 'Quantity': 1, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+		if not "boiling pot" in recipe['Tools']:
+			recipe['Tools'].append("boiling pot")
+		if not "bowl" in recipe['Tools']:
+			recipe['Tools'].append("bowl")
+		if not "frying pan" in recipe['Tools']:
+			recipe['Tools'].append("frying pan")
+		if not "wooden cooking spoon" in recipe['Tools']:
+			recipe['Tools'].append("wooden cooking spoon")
+		if not "fry" in recipe['Methods']:
+			recipe['Tools'].append("fry")
+		if not "mustard oil" in recipe['Tools']:
+			recipe['Ingredients'].append({'Name': "Mustard Oil", 'Quantity': 3, 'Measurement': "tablespoon", 'Descriptor': "", 'Preparation': ""})
+		recipe['Steps']['Added Step 1'] = 'Boil 1 cup of Kabuli chana over medium-high heat for 10 minutes. Once cooked, remove Kabuli chana from the pot and place into a bowl.'
+		recipe['Steps']['Added Step 2'] = 'Take the .5 cups of garam masala and pour into the frying pan. Fry over medium heat in 3 tablespoons of mustard oil for 10 minutes until browning occurs.'
+		recipe['Steps']['Added Step 3'] = 'Pour the fried Garam Masala mix into the bowl with the Kabuli channa and use the wooden spoon to mix together. Mix the Kabuli chana with the rest of your dish and enjoy!'
+
 
 	return recipe
+
+
 
 
 
