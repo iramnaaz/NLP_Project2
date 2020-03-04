@@ -3,133 +3,107 @@ import random
 client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 
 
-
-ExampleRecipe1 = {
-	'Ingredients': 
-		[{
-		'name': 'chicken',
-		'quantity': 1,
-		'Measurement': "pound", 
-		'Descriptor': "",
-		'Preparation': "",
-		'Tags': ""
-				},
-		{
-		'Name': 'onion',
-		'Quantity': 0.5,
-		'Measurement': "",
-		"Descriptor": "",
-		'Preparation':"chopped"
-				},
-	   {
-		'Name': 'red bell peppers',
-		'Quantity': 2,
-		'Measurement': "",
-		'Descriptor': "",
-		'Preparation': "cut",
-				}, 
-		],
 					
-	'Tools': ["knife", "tablespoon"], 
+# 	'Tools': ["knife", "tablespoon"], 
 
-	'Methods': {"Primary_cooking_method": ["grill"],
-				"alternative_cooking_method": ["grate", "heat", "slice", "cut"]},
+# 	'Methods': {"Primary_cooking_method": ["grill"],
+# 				"alternative_cooking_method": ["grate", "heat", "slice", "cut"]},
 
-	'Steps': ['Preheat the oven to 350 degrees F (175 degrees C).',
-			  'Crumble the ground beef into a large cast-iron skillet over medium-high heat. Cook, stirring frequently, until beef is evenly brown.;',
-			  'Mix the package of cornbread mix according to the directions using the egg and milk. Spoon over the ground beef mixture, and spread evenly.',
-			  'Place the whole skillet in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
-			  ]
-	} 
+# 	'Steps': ['Preheat the oven to 350 degrees F (175 degrees C).',
+# 			  'Crumble the ground beef into a large cast-iron skillet over medium-high heat. Cook, stirring frequently, until beef is evenly brown.;',
+# 			  'Mix the package of cornbread mix according to the directions using the egg and milk. Spoon over the ground beef mixture, and spread evenly.',
+# 			  'Place the whole skillet in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
+# 			  ]
+# 	} 
 
 
-VegetarianRecipe1 = {
-	'Ingredients': 
-		[{
-		'Name': 'butter',
-		'Quantity': 1,
-		'Measurement': "tablespoon", 
-		'Descriptor': "",
-		'Preparation': "",
-		'Tags': ""
-				},
-		{
-		'Name': 'onion',
-		'Quantity': 0.5,
-		'Measurement': "cup",
-		"Descriptor": "",
-		'Preparation':"sliced"
-				},
-	   {
-		'Name': 'garlic',
-		'Quantity': 2,
-		'Measurement': "cloves",
-		'Descriptor': "",
-		'Preparation': "minced",
-				}, 
-		],
+# VegetarianRecipe1 = {
+# 	'Ingredients': 
+# 		[{
+# 		'Name': 'butter',
+# 		'Quantity': 1,
+# 		'Measurement': "tablespoon", 
+# 		'Descriptor': "",
+# 		'Preparation': "",
+# 		'Tags': ""
+# 				},
+# 		{
+# 		'Name': 'onion',
+# 		'Quantity': 0.5,
+# 		'Measurement': "cup",
+# 		"Descriptor": "",
+# 		'Preparation':"sliced"
+# 				},
+# 	   {
+# 		'Name': 'garlic',
+# 		'Quantity': 2,
+# 		'Measurement': "cloves",
+# 		'Descriptor': "",
+# 		'Preparation': "minced",
+# 				}, 
+# 		],
 					
-	'Tools': ["knife", "tablespoon", "saucepan", "skillet"], 
+# 	'Tools': ["knife", "tablespoon", "saucepan", "skillet"], 
 
-	'Methods': [""],
+# 	'Methods': [""],
 
-	'Steps': {'Step 1': 'Preheat the oven to 375 degrees F (190 degrees C).',
-			  'Step 2': 'Melt butter in a saucepan over medium heat. Add garlic and onion; cook for a few minutes until fragrant, but not brown. Stir in spinach, and cook for about 5 more minutes. Remove from the heat, and mix in ricotta cheese, sour cream, and 1 cup of Monterey Jack cheese.',
-			  'Step 3': 'In a skillet over medium heat, warm tortillas one at a time until flexible, about 15 seconds. Spoon about 1/4 cup of the spinach mixture onto the center of each tortilla. Roll up, and place seam side down in a 9x13 inch baking dish. Pour enchilada sauce over the top, and sprinkle with the remaining cup of Monterey Jack.',
-			  'Step 4': 'Bake for 15 to 20 minutes in the preheated oven, until sauce is bubbling and cheese is lightly browned at the edges.'
-			  }
-	}
+# 	'Steps': {'Step 1': 'Preheat the oven to 375 degrees F (190 degrees C).',
+# 			  'Step 2': 'Melt butter in a saucepan over medium heat. Add garlic and onion; cook for a few minutes until fragrant, but not brown. Stir in spinach, and cook for about 5 more minutes. Remove from the heat, and mix in ricotta cheese, sour cream, and 1 cup of Monterey Jack cheese.',
+# 			  'Step 3': 'In a skillet over medium heat, warm tortillas one at a time until flexible, about 15 seconds. Spoon about 1/4 cup of the spinach mixture onto the center of each tortilla. Roll up, and place seam side down in a 9x13 inch baking dish. Pour enchilada sauce over the top, and sprinkle with the remaining cup of Monterey Jack.',
+# 			  'Step 4': 'Bake for 15 to 20 minutes in the preheated oven, until sauce is bubbling and cheese is lightly browned at the edges.'
+# 			  }
+# 	}
 
-ExampleRecipe2 = {
-	'Ingredients': 
-		[{
-		'Name': 'Bread',
-		'Quantity': 1,
-		'Measurement': "pound", 
-		'Descriptor': "",
-		'Preparation': "",
-		'Tags': ""
-				},
-		{
-		'Name': 'mayo',
-		'Quantity': 0.5,
-		'Measurement': "",  
-		"Descriptor": "",
-		'Preparation':"chopped"
-				},
-	   {
-		'Name': 'butter',
-		'Quantity': 2,
-		'Measurement': "",
-		'Descriptor': "",
-		'Preparation': "cut",
-				}, 
-		{
-		'Name': 'oil',
-		'Quantity': 2,
-		'Measurement': "",
-		'Descriptor': "",
-		'Preparation': "cut",
-				},
-		{
-		'Name': 'rice',
-		'Quantity': 2,
-		'Measurement': "",
-		'Descriptor': "",
-		'Preparation': "cut",
-				}
-		],
+# ExampleRecipe2 = {
+# 	'Ingredients': 
+# 		[{
+# 		'Name': 'Bread',
+# 		'Quantity': 1,
+# 		'Measurement': "pound", 
+# 		'Descriptor': "",
+# 		'Preparation': "",
+# 		'Tags': ""
+# 				},
+# 		{
+# 		'Name': 'mayo',
+# 		'Quantity': 0.5,
+# 		'Measurement': "",  
+# 		"Descriptor": "",
+# 		'Preparation':"chopped"
+# 				},
+# 	   {
+# 		'Name': 'butter',
+# 		'Quantity': 2,
+# 		'Measurement': "",
+# 		'Descriptor': "",
+# 		'Preparation': "cut",
+# 				}, 
+# 		{
+# 		'Name': 'oil',
+# 		'Quantity': 2,
+# 		'Measurement': "",
+# 		'Descriptor': "",
+# 		'Preparation': "cut",
+# 				},
+# 		{
+# 		'Name': 'rice',
+# 		'Quantity': 2,
+# 		'Measurement': "",
+# 		'Descriptor': "",
+# 		'Preparation': "cut",
+# 				}
+# 		],
 					
-	'Tools': ["knife", "tablespoon"], 
+# 	'Tools': ["knife", "tablespoon"], 
 
-	'Methods': [""],
+# 	'Methods': [""],
 
-	'Steps': {'Step 1': 'Preheat the oven to 350 degrees F (175 degrees C).',
-			  'Step 2': 'Crumble the bread into a large cast-iron skillet over a bread of medium-high heat. Cook, stirring frequently, until mayo and butter are evenly brown.;',
-			  'Step 3': 'Mix the package of oil mix according to the directions using the egg and milk. Spoon over the oil mixture, and spread evenly.',
-			  'Step 4': 'Place the whole rice in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
-			  }
-	} 
+# 	'Steps': {'Step 1': 'Preheat the oven to 350 degrees F (175 degrees C).',
+# 			  'Step 2': 'Crumble the bread into a large cast-iron skillet over a bread of medium-high heat. Cook, stirring frequently, until mayo and butter are evenly brown.;',
+# 			  'Step 3': 'Mix the package of oil mix according to the directions using the egg and milk. Spoon over the oil mixture, and spread evenly.',
+# 			  'Step 4': 'Place the whole rice in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
+# 			  }
+# 	} 
 
 
 
@@ -143,28 +117,28 @@ joined_meats = meats + non_meat_subs
 #problem with usda text search: non-meat items can return meat items (see red bell peppers and onion)
 #include everything that is a string in the search? helps with onion but not red bell pepper
 def VegetarianTransformTo (recipe):
+
+	new_steps = []
 	my_sub = random.choice(non_meat_subs)
-	for key, value in recipe.items():
+	for key, value in recipe["Recipe"].items():
 		if key == "Ingredients":
 			for ing in value: #value is array, ing are the ingrediants
-				#print(ing)
 				for key1, value1 in ing.items():
 					#print(ings)
 					if type(value1) == str:
-						#foods_search = client.search_foods(value1, 1)
-						#my_food = next(foods_search)
-						#report = client.get_food_report(my_food.id)
-						#my_string = report.food.name.lower()
 						if any(x in value1 for x in meats): #replace value1 with my_stirng if you want to use usda lib
 							#print(value1)
 							ing[key1] = my_sub
 		if key == "Steps":
-			for step in recipe['Steps']:
+			for step in recipe['Recipe']['Steps']:
 				for x in meats:
 					if x in step:
 						#print(value2.replace(x,"tofu"))
-						step = step.replace(x, my_sub) 
+						step = step.replace(x, my_sub)
+						new_steps.append(step)
 
+	recipe['Recipe'].pop("Steps", None)
+	recipe['Recipe']['Steps'] = new_steps
 
 	return recipe
 
@@ -311,14 +285,8 @@ def IndianTransformToV2 (recipe):
 
 
 
-def main():
-	print(VegetarianTransformTo(ExampleRecipe1))
-
-#VegetarianTransform(ExampleRecipe1)
-#print(VegetarianTransformFrom(VegetarianRecipe1))
-print(IndianTransformToV2(ExampleRecipe1))
-#print(VegetarianTransformTo(ExampleRecipe1))
-#print(VegetarianTransformFrom(VegetarianRecipe1))
+# def main():
+# 	print(VegetarianTransformTo(ExampleRecipe1))
 
 
 #def HealthyTransform-> milk, yougurt, meat
