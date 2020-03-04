@@ -134,8 +134,11 @@ def VegetarianTransformTo (recipe):
 				for x in meats:
 					if x in step:
 						#print(value2.replace(x,"tofu"))
+						new_steps = recipe['Recipe']['Steps']
+						number = recipe['Recipe']['Steps'].index(step)
+						recipe['Recipe']['Steps'].remove(step)
 						step = step.replace(x, my_sub)
-						new_steps.append(step)
+						new_steps.insert(number, step)
 
 	recipe['Recipe'].pop("Steps", None)
 	recipe['Recipe']['Steps'] = new_steps
@@ -309,7 +312,7 @@ def IndianTransformToV2 (recipe):
 
 
 
-print(VegetarianTransformTo(VegFrom))
+#print(VegetarianTransformTo(VegFrom))
 
 
 
