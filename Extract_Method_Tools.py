@@ -1,4 +1,5 @@
 import nltk
+nltk.download('punkt')
 
 def methods_parse(directions):
     # parsing of the methods from the directions of a recipe

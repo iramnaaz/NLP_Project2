@@ -214,7 +214,6 @@ def VegetarianTransformFrom (recipe):
 
 	recipe['Recipe'].pop("Steps", None)
 	recipe['Recipe']['Steps'] = new_steps
-	#print(new_steps) #testing case 1 NOT case 2!! :/
 
 	return recipe					
 
@@ -311,6 +310,16 @@ def IndianTransformToV2 (recipe):
 
 
 print(VegetarianTransformTo(VegFrom))
+
+
+
+
+
+
+# def main():
+
+# print(VegetarianTransformFrom(VegFrom))
+
 
 
 
