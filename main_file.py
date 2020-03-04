@@ -1,6 +1,7 @@
 from Extract_Method_Tools import methods_parse, tools_parse
 from ingredient_scrape import RecipeFetcher
 from ing_steps import fetch_and_pack
+from transformation1 import *
 import json
 
 print("Please input a recipe URL:")
@@ -27,6 +28,9 @@ else:
 			break
 		if choice == '1':
 			print("Vegetarian Transformation: ")
+			vegRecipe = VegetarianTransformTo(recipe)
+			with open('veg_recipe.json', 'w') as outfile:
+			    json.dump(vegRecipe, outfile)
 		elif choice == '2':
 			print("Non-Vegetarian Transformation: ")
 		elif choice == '3':
