@@ -7,8 +7,8 @@ client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 ExampleRecipe1 = {
 	'Ingredients': 
 		[{
-		'Name': 'ground beef',
-		'Quantity': 1,
+		'name': 'ground beef',
+		'quantity': 1,
 		'Measurement': "pound", 
 		'Descriptor': "",
 		'Preparation': "",
@@ -32,13 +32,14 @@ ExampleRecipe1 = {
 					
 	'Tools': ["knife", "tablespoon"], 
 
-	'Methods': [""],
+	'Methods': {"Primary_cooking_method": ["grill"],
+				"alternative_cooking_method": ["grate", "heat", "slice", "cut"]},
 
-	'Steps': {'Step 1': 'Preheat the oven to 350 degrees F (175 degrees C).',
-			  'Step 2': 'Crumble the ground beef into a large cast-iron skillet over medium-high heat. Cook, stirring frequently, until beef is evenly brown.;',
-			  'Step 3': 'Mix the package of cornbread mix according to the directions using the egg and milk. Spoon over the ground beef mixture, and spread evenly.',
-			  'Step 4': 'Place the whole skillet in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
-			  }
+	'Steps': ['Preheat the oven to 350 degrees F (175 degrees C).',
+			  'Crumble the ground beef into a large cast-iron skillet over medium-high heat. Cook, stirring frequently, until beef is evenly brown.;',
+			  'Mix the package of cornbread mix according to the directions using the egg and milk. Spoon over the ground beef mixture, and spread evenly.',
+			  'Place the whole skillet in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
+			  ]
 	} 
 
 
@@ -77,8 +78,58 @@ VegetarianRecipe1 = {
 			  'Step 3': 'In a skillet over medium heat, warm tortillas one at a time until flexible, about 15 seconds. Spoon about 1/4 cup of the spinach mixture onto the center of each tortilla. Roll up, and place seam side down in a 9x13 inch baking dish. Pour enchilada sauce over the top, and sprinkle with the remaining cup of Monterey Jack.',
 			  'Step 4': 'Bake for 15 to 20 minutes in the preheated oven, until sauce is bubbling and cheese is lightly browned at the edges.'
 			  }
-	} 
+	}
 
+ExampleRecipe2 = {
+	'Ingredients': 
+		[{
+		'Name': 'Bread',
+		'Quantity': 1,
+		'Measurement': "pound", 
+		'Descriptor': "",
+		'Preparation': "",
+		'Tags': ""
+				},
+		{
+		'Name': 'mayo',
+		'Quantity': 0.5,
+		'Measurement': "",  
+		"Descriptor": "",
+		'Preparation':"chopped"
+				},
+	   {
+		'Name': 'butter',
+		'Quantity': 2,
+		'Measurement': "",
+		'Descriptor': "",
+		'Preparation': "cut",
+				}, 
+		{
+		'Name': 'oil',
+		'Quantity': 2,
+		'Measurement': "",
+		'Descriptor': "",
+		'Preparation': "cut",
+				},
+		{
+		'Name': 'rice',
+		'Quantity': 2,
+		'Measurement': "",
+		'Descriptor': "",
+		'Preparation': "cut",
+				}
+		],
+					
+	'Tools': ["knife", "tablespoon"], 
+
+	'Methods': [""],
+
+	'Steps': {'Step 1': 'Preheat the oven to 350 degrees F (175 degrees C).',
+			  'Step 2': 'Crumble the bread into a large cast-iron skillet over a bread of medium-high heat. Cook, stirring frequently, until mayo and butter are evenly brown.;',
+			  'Step 3': 'Mix the package of oil mix according to the directions using the egg and milk. Spoon over the oil mixture, and spread evenly.',
+			  'Step 4': 'Place the whole rice in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
+			  }
+	} 
 
 
 
@@ -108,9 +159,9 @@ def VegetarianTransformTo (recipe):
 							#print(value1)
 							ing[key1] = my_sub
 		if key == "Steps":
-			for key2, value2 in value.items():
+			for step in recipe['Steps']:
 				for x in meats:
-					if x in value2:
+					if x in step:
 						#print(value2.replace(x,"tofu"))
 						value[key2] = value2.replace(x, my_sub) 
 
@@ -164,6 +215,10 @@ def VegetarianTransformFrom (recipe):
 	return recipe					
 
 
+my_breads = ["toast", "bread", "sourdough", "tortilla", "baguette", "bun", "pita", "bagel", "biscuit"]
+my_sauces = ["mayo", "BBQ", "sauce", "sweet and sour", "chipotle sauce", "dressing", "ranch"]
+my_masalas = ["Godha", "Tikka", "Tandoori", "Sambhar", "Chole"]
+cooking_methods = ["fry", "cook", "bake", "grill", "sautè", "roast", "steam", "broil"]
 
 def IndianTransformToV2 (recipe):
 	masala = random.choice(my_masalas)
@@ -200,9 +255,9 @@ def IndianTransformToV2 (recipe):
 				#for x in my_breads:
 					#print(x)
 				if my_bread in value2.lower():
-					print(my_bread)
+					#print(my_bread)
 					value[key2] = value2.replace(my_bread,"naan") 
-					print(value)
+					#print(value)
 				#for x in my_sauces:
 					#if x in value2.lower():
 						#value[key2] = value2.replace(x, "coriander chutney")
@@ -260,6 +315,9 @@ def main():
 	print(VegetarianTransformTo(ExampleRecipe1))
 
 #VegetarianTransform(ExampleRecipe1)
+#print(VegetarianTransformFrom(VegetarianRecipe1))
+#print(IndianTransformToV2(ExampleRecipe1))
+print(VegetarianTransformTo(ExampleRecipe1))
 print(VegetarianTransformFrom(VegetarianRecipe1))
 
 
