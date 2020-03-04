@@ -70,7 +70,7 @@ def HealthyTransformTo (recipe):
 						my_food = next(foods_search)
 						report = client.get_food_report(my_food.id)
 						my_string = report.food.name.lower()
-						if any(x in value1 for x in meats): #replace value1 with my_stirng if you want to use usda lib
+						if any(x in value1 for x in non_healthy_foods): #replace value1 with my_stirng if you want to use usda lib
 							ing[key1] = my_sub
 		if key == "Steps":
 			for key2, value2 in value.items():
