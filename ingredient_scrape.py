@@ -20,7 +20,8 @@ class RecipeFetcher:
 
     def scrape_recipe(self, recipe_url):
         results = {}
-
+        nutrition = {}
+        
         page_html = requests.get(recipe_url)
         page_graph = BeautifulSoup(page_html.content)
 
@@ -31,7 +32,19 @@ class RecipeFetcher:
                                  page_graph.find_all('span', {'class':'recipe-directions__list--item'})
                                  if direction.text.strip()]
 
-        results['nutrition'] = self.scrape_nutrition_facts(recipe_url)
+        results["nutrition"] = nutrition
+        results["nutrition"]["calories"] = [ncal.text.strip() for ncal in
+                                            page_graph.find_all('span', {'itemprop': 'calories'}) if ncal.text.strip()]
+        results["nutrition"]["fat"] = [n.text.strip() for n in page_graph.find_all('span', {'itemprop': 'fatContent'})
+                                       if n.text.strip()]
+        results["nutrition"]["carbohydrate"] = [ncarbo.text.strip() for ncarbo in
+                                                page_graph.find_all('span', {'itemprop': 'carbohydrateContent'}) if
+                                                ncarbo.text.strip()]
+        results["nutrition"]["sodium"] = [nsodium.text.strip() for nsodium in
+                                          page_graph.find_all('span', {'itemprop': 'sodiumContent'}) if nsodium.text.strip()]
+        results["nutrition"]["protein"] = [nprotein.text.strip() for nprotein in
+                                           page_graph.find_all('span', {'itemprop': 'proteinContent'}) if
+                                           nprotein.text.strip()]
 
         return results
     
