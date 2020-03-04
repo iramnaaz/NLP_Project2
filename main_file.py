@@ -33,6 +33,9 @@ else:
 			    json.dump(vegRecipe, outfile)
 		elif choice == '2':
 			print("Non-Vegetarian Transformation: ")
+			vegRecipe = VegetarianTransformFrom(recipe)
+			with open('veg_recipe.json', 'w') as outfile:
+				json.dump(vegRecipe, outfile)
 		elif choice == '3':
 			print("Indian Transformation: ")
 		else:
