@@ -147,7 +147,7 @@ def VegetarianTransformTo (recipe):
 
 VegFrom = {"Recipe": {"Ingredients": [{"quantity": "1", "name": "long thin baguette"}, 
 	{"quantity": "0.25", "measurement": "cup", "name": "olive oil, divided"}, 
-	{"quantity": "2", "preparation": "halved", "name": "tofu,"}, 
+	{"quantity": "2", "preparation": "halved", "name": "tofu"}, 
 	{"quantity": "1", "preparation": "halved", "name": "small tomato,  and seeded"}, 
 	{"quantity": "1", "measurement": "quart", "name": "head romaine lettuce, outer leaves discarded and head cut into ers"}, 
 	{"quantity": "", "measurement": "to taste", "name": "salt and coarsely ground black pepper"}, 
@@ -165,13 +165,18 @@ def VegetarianTransformFrom (recipe):
 	#Case I - no meat or meat subs are present
 	my_meat = random.choice(meats)
 	vegetarian = 1
-	for key, value in recipe.items():
+	for key, value in recipe['Recipe'].items():
 		if key == "Ingredients":
+			#print(value)
 			for ing in value: 
 				for key1, value1 in ing.items():
+					#print(value1)
 					if type(value1) == str:
-						if any(x in value1 for x in joined_meats):
-							vegetarian = 0
+						#print(value1)
+						for x in joined_meats:
+							#print(value1)
+							if x in value1:
+								vegetarian = 0
 	#gotta add meat bc there are no meats and no non-meats
 	if vegetarian == 1: 
 		recipe['Recipe']['Ingredients'].append({'quantity': 1, 'measurement': "pound", 'name': my_meat})
@@ -181,7 +186,7 @@ def VegetarianTransformFrom (recipe):
 
 	#Case II - meat subs are present and we need to replace with meat
 
-	for key, value in recipe.items():
+	for key, value in recipe['Recipe'].items():
 		if key == "Ingredients":
 			for ing in value: #value is array, ing are the ingrediants
 				#print(ing)
@@ -196,16 +201,19 @@ def VegetarianTransformFrom (recipe):
 							#print(value1)
 							ing[key1] = my_meat
 		if key == "Steps":
-			for step in recipe['Steps']:
+			for step in recipe['Recipe']['Steps']:
 				for x in non_meat_subs:
 					if x in step:
 						#print(value2.replace(x,"tofu"))
+						new_steps = recipe['Recipe']['Steps']
+						number = recipe['Recipe']['Steps'].index(step)
+						recipe['Recipe']['Steps'].remove(step)
 						step = step.replace(x, my_meat) 
-						new_steps.append(step)
+						new_steps.insert(number, step)
 
 	recipe['Recipe'].pop("Steps", None)
 	recipe['Recipe']['Steps'] = new_steps
-	print(new_steps) #testing case 1 NOT case 2!! :/
+	#print(new_steps) #testing case 1 NOT case 2!! :/
 
 	return recipe					
 
@@ -300,13 +308,6 @@ def IndianTransformToV2 (recipe):
 	return recipe
 
 
-
-
-
-
-
-
-# def main():
 
 print(VegetarianTransformFrom(VegFrom))
 
