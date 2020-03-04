@@ -108,7 +108,7 @@ client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 
 
 
-meats = ["beef", "pork", "ground beef", "ham", "chicken", "bacon", "meat", "salami", "steak", "turkey", "duck", "lamb", "mutton", "duck", "veal", "sausage", "tilapia", "halibut", "cod", "salmon", "shrimp", "lobster", "crab", "catfish", "trout", "fish", "sardines", "tuna"]
+meats = ["beef", "pork", "chicken breast", "mutton thigh", "t-bone steak", "ground beef", "ham", "chicken", "bacon", "salami", "steak", "turkey", "duck", "lamb", "mutton", "duck", "veal", "sausage", "tilapia", "halibut", "cod", "salmon", "shrimp", "lobster", "crab", "catfish", "trout", "sardines", "tuna"]
 non_meat_subs = ["tofu", "tempeh", "seitan", "textured vegetable protein", "jackfruit", "mushroom", "lentils", "beans"]
 joined_meats = meats + non_meat_subs
 
@@ -144,8 +144,24 @@ def VegetarianTransformTo (recipe):
 
 #caseI: no meats or non-meats are in the whole recipe and we need to add some meat
 #caseII: we need to replace meat subs with meat
+
+VegFrom = {"Recipe": {"Ingredients": [{"quantity": "1", "name": "long thin baguette"}, 
+	{"quantity": "0.25", "measurement": "cup", "name": "olive oil, divided"}, 
+	{"quantity": "2", "preparation": "halved", "name": "tofu,"}, 
+	{"quantity": "1", "preparation": "halved", "name": "small tomato,  and seeded"}, 
+	{"quantity": "1", "measurement": "quart", "name": "head romaine lettuce, outer leaves discarded and head cut into ers"}, 
+	{"quantity": "", "measurement": "to taste", "name": "salt and coarsely ground black pepper"}, 
+	{"quantity": "1", "measurement": "cup", "name": "Caesar salad dressing"}, 
+	{"quantity": "0.5", "measurement": "cup", "name": "Parmesan cheese shavings"}], 
+"Tools": ["grate"], 
+"Methods": {"Primary_cooking_method": ["grill"], 
+"alternative_cooking_method": ["grate", "heat", "slice", "cut"]}, 
+"Steps": ["Preheat grill for low heat and lightly oil the grate.", "Cut tofu on a severely sharp diagonal to make 4 long slices about 1/2-inch thick. Lightly brush each cut side with about half of the olive oil.", "Grill baguette slices on the preheated grill until lightly crispy, 2 to 3 minutes per side. Rub each side of baguette slices with the cut-side of garlic and cut-side of tomatoes. Set aside to cool.", "Brush 2 cut sides of romaine quarters with remaining olive oil.", "Grill romaine quarters until lightly seared, 2 to 3 minutes per side. Sprinkle grilled romaine with salt and set aside to cool.", "Place a grilled romaine quarter, cut-side up, on top of a grilled baguette slice. Drizzle each with Caesar dressing and top with Parmesan cheese. Season with salt and black pepper."]}}
+
+
 def VegetarianTransformFrom (recipe):
 
+	new_steps = []
 	#Case I - no meat or meat subs are present
 	my_meat = random.choice(meats)
 	vegetarian = 1
@@ -158,9 +174,10 @@ def VegetarianTransformFrom (recipe):
 							vegetarian = 0
 	#gotta add meat bc there are no meats and no non-meats
 	if vegetarian == 1: 
-		recipe['Ingredients'].append({'Name': my_meat, 'Quantity': 1, 'Measurement': "pound", 'Descriptor': "", 'Preparation': ""})
-		recipe['Steps']['Added Step 1'] = 'Crumble the ' + my_meat +' into a large cast-iron skillet over medium-high heat. Stir frequently, until '+ my_meat +' is cooked well.;'
-		recipe['Steps']['Added Step 2'] = 'Add the cooked ' + my_meat + ' to the rest of the dish.'
+		recipe['Recipe']['Ingredients'].append({'quantity': 1, 'measurement': "pound", 'name': my_meat})
+		new_steps = recipe['Recipe']['Steps']
+		new_steps.append ('Crumble the ' + my_meat +' into a large cast-iron skillet over medium-high heat. Stir frequently, until '+ my_meat +' is cooked well.;')
+		new_steps.append('Add the cooked ' + my_meat + ' to the rest of the dish.')
 
 	#Case II - meat subs are present and we need to replace with meat
 
@@ -175,16 +192,20 @@ def VegetarianTransformFrom (recipe):
 						#my_food = next(foods_search)
 						#report = client.get_food_report(my_food.id)
 						#my_string = report.food.name.lower()
-						if any(x in value1 for x in meats): #replace value1 with my_stirng if you want to use usda lib
+						if any(x in value1 for x in non_meat_subs): #replace value1 with my_stirng if you want to use usda lib
 							#print(value1)
 							ing[key1] = my_meat
 		if key == "Steps":
 			for step in recipe['Steps']:
-				for x in meats:
+				for x in non_meat_subs:
 					if x in step:
 						#print(value2.replace(x,"tofu"))
 						step = step.replace(x, my_meat) 
+						new_steps.append(step)
 
+	recipe['Recipe'].pop("Steps", None)
+	recipe['Recipe']['Steps'] = new_steps
+	print(new_steps) #testing case 1 NOT case 2!! :/
 
 	return recipe					
 
@@ -286,10 +307,11 @@ def IndianTransformToV2 (recipe):
 
 
 # def main():
-# 	print(VegetarianTransformTo(ExampleRecipe1))
+
+print(VegetarianTransformFrom(VegFrom))
 
 
-#def HealthyTransform-> milk, yougurt, meat
+
 
 
 
