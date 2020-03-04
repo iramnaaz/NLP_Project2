@@ -7,7 +7,7 @@ client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 ExampleRecipe1 = {
 	'Ingredients': 
 		[{
-		'name': 'ground beef',
+		'name': 'chicken',
 		'quantity': 1,
 		'Measurement': "pound", 
 		'Descriptor': "",
@@ -151,10 +151,10 @@ def VegetarianTransformTo (recipe):
 				for key1, value1 in ing.items():
 					#print(ings)
 					if type(value1) == str:
-						foods_search = client.search_foods(value1, 1)
-						my_food = next(foods_search)
-						report = client.get_food_report(my_food.id)
-						my_string = report.food.name.lower()
+						#foods_search = client.search_foods(value1, 1)
+						#my_food = next(foods_search)
+						#report = client.get_food_report(my_food.id)
+						#my_string = report.food.name.lower()
 						if any(x in value1 for x in meats): #replace value1 with my_stirng if you want to use usda lib
 							#print(value1)
 							ing[key1] = my_sub
@@ -163,7 +163,7 @@ def VegetarianTransformTo (recipe):
 				for x in meats:
 					if x in step:
 						#print(value2.replace(x,"tofu"))
-						value[key2] = value2.replace(x, my_sub) 
+						step = step.replace(x, my_sub) 
 
 
 	return recipe
@@ -205,11 +205,11 @@ def VegetarianTransformFrom (recipe):
 							#print(value1)
 							ing[key1] = my_meat
 		if key == "Steps":
-			for key2, value2 in value.items():
+			for step in recipe['Steps']:
 				for x in meats:
-					if x in value2:
+					if x in step:
 						#print(value2.replace(x,"tofu"))
-						value[key2] = value2.replace(x, my_meat) 
+						step = step.replace(x, my_meat) 
 
 
 	return recipe					
@@ -251,17 +251,17 @@ def IndianTransformToV2 (recipe):
 							recipe['Ingredients'].append({'Name': "Biryani Masala", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
 							recipe['Steps']['Added Step 1'] = 'Before adding the biryani to your meal, fry the biryani masala for 10 minutes on medium heat. When finished, mix the fried masala with the biryani.'
 		if key == "Steps":
-			for key2, value2 in value.items():
+			for step in recipe['Steps']:
 				#for x in my_breads:
 					#print(x)
-				if my_bread in value2.lower():
+				if my_bread in step.lower():
 					#print(my_bread)
-					value[key2] = value2.replace(my_bread,"naan") 
+					value[key2] = step.replace(my_bread,"naan") 
 					#print(value)
 				#for x in my_sauces:
 					#if x in value2.lower():
 						#value[key2] = value2.replace(x, "coriander chutney")
-				if "butter" in value2.lower():
+				if "butter" in step.lower():
 					value[key2] = value2.replace("butter", "ghee")
 				if "oil" in value2.lower():
 					value[key2] = value2.replace("oil", "mustard oil")
@@ -316,9 +316,9 @@ def main():
 
 #VegetarianTransform(ExampleRecipe1)
 #print(VegetarianTransformFrom(VegetarianRecipe1))
-#print(IndianTransformToV2(ExampleRecipe1))
-print(VegetarianTransformTo(ExampleRecipe1))
-print(VegetarianTransformFrom(VegetarianRecipe1))
+print(IndianTransformToV2(ExampleRecipe1))
+#print(VegetarianTransformTo(ExampleRecipe1))
+#print(VegetarianTransformFrom(VegetarianRecipe1))
 
 
 #def HealthyTransform-> milk, yougurt, meat
