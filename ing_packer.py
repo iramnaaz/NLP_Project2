@@ -3,7 +3,9 @@ import re
 unit_white_list = ['teaspoon', 'tablespoon', 'fluid ounce', 'ounce', 'cup', 'pint', 'quart', 'gallon',
 'milliliter', 'liter', 'pound', 'milligram', 'kilogram', 'gram', 'millimeter', 'centimeter', 'meter', 'inch', 'to taste']
 
-bad_phrase = ['to taste', '(', ')', '/', 'or']
+bad_phrase = ['to taste', '(', ')', '/']
+
+preparations = ['chopped', 'minced', 'diced', 'grated', 'sliced']
 
 def make_ing_list(ingredients):
 	ingredient_list = []
@@ -32,8 +34,6 @@ def ing_parse(ingredient):
 		ingredient = ingredient.replace(s,'')
 	# ingredient = ingredient.strip()
 
-	
-
 	for u in unit_white_list:
 		if u in ingredient:
 			x["measurement"] = u
@@ -44,6 +44,12 @@ def ing_parse(ingredient):
 			else:
 				ingredient = ingredient.replace(u,'')
 				# ingredient = ingredient.strip()
+			break
+
+	for p in preparations:
+		if p in ingredient:
+			x["preparation"] = p
+			ingredient = ingredient.replace(p,'')
 			break
 
 	pattern = '[0-9]'
