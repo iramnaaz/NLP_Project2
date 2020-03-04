@@ -147,7 +147,7 @@ def VegetarianTransformTo (recipe):
 
 VegFrom = {"Recipe": {"Ingredients": [{"quantity": "1", "name": "long thin baguette"}, 
 	{"quantity": "0.25", "measurement": "cup", "name": "olive oil, divided"}, 
-	{"quantity": "2", "preparation": "halved", "name": "tofu"}, 
+	{"quantity": "2", "preparation": "halved", "name": "chicken"}, 
 	{"quantity": "1", "preparation": "halved", "name": "small tomato,  and seeded"}, 
 	{"quantity": "1", "measurement": "quart", "name": "head romaine lettuce, outer leaves discarded and head cut into ers"}, 
 	{"quantity": "", "measurement": "to taste", "name": "salt and coarsely ground black pepper"}, 
@@ -156,9 +156,10 @@ VegFrom = {"Recipe": {"Ingredients": [{"quantity": "1", "name": "long thin bague
 "Tools": ["grate"], 
 "Methods": {"Primary_cooking_method": ["grill"], 
 "alternative_cooking_method": ["grate", "heat", "slice", "cut"]}, 
-"Steps": ["Preheat grill for low heat and lightly oil the grate.", "Cut tofu on a severely sharp diagonal to make 4 long slices about 1/2-inch thick. Lightly brush each cut side with about half of the olive oil.", "Grill baguette slices on the preheated grill until lightly crispy, 2 to 3 minutes per side. Rub each side of baguette slices with the cut-side of garlic and cut-side of tomatoes. Set aside to cool.", "Brush 2 cut sides of romaine quarters with remaining olive oil.", "Grill romaine quarters until lightly seared, 2 to 3 minutes per side. Sprinkle grilled romaine with salt and set aside to cool.", "Place a grilled romaine quarter, cut-side up, on top of a grilled baguette slice. Drizzle each with Caesar dressing and top with Parmesan cheese. Season with salt and black pepper."]}}
+"Steps": ["Preheat grill for low heat and lightly oil the grate.", "Cut chicken on a severely sharp diagonal to make 4 long slices about 1/2-inch thick. Lightly brush each cut side with about half of the olive oil.", "Grill baguette slices on the preheated grill until lightly crispy, 2 to 3 minutes per side. Rub each side of baguette slices with the cut-side of garlic and cut-side of tomatoes. Set aside to cool.", "Brush 2 cut sides of romaine quarters with remaining olive oil.", "Grill romaine quarters until lightly seared, 2 to 3 minutes per side. Sprinkle grilled romaine with salt and set aside to cool.", "Place a grilled romaine quarter, cut-side up, on top of a grilled baguette slice. Drizzle each with Caesar dressing and top with Parmesan cheese. Season with salt and black pepper."]}}
 
 
+#fix steps part?
 def VegetarianTransformFrom (recipe):
 
 	new_steps = []
@@ -309,7 +310,7 @@ def IndianTransformToV2 (recipe):
 
 
 
-print(VegetarianTransformFrom(VegFrom))
+print(VegetarianTransformTo(VegFrom))
 
 
 
