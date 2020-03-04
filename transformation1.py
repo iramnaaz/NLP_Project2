@@ -166,10 +166,15 @@ def VegetarianTransformFrom (recipe):
 
 
 def IndianCuisineTransformTo (recipe):
-	recipe['Ingredients'].append({'Name': "Kabuli chana", 'Quantity': 2, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
-	recipe['Ingredients'].append({'Name': "Garam Masala", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+	masala = random.choice(my_masalas)
+	#recipe['Ingredients'].append({'Name': "Garam Masala", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+	for tools in recipe['Tools']:
+		if not "frying pan" in tools.lower():
+			recipe['Tools'].append("frying pan")
 	#recipe['Ingredients'].append({'Name': "Coriander Chutney", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
 
+	cooked_val = 0
+	my_bread = ""
 	for key, value in recipe.items():
 		if key == "Ingredients":
 			for ing in value: #value is array, ing are the ingrediants
@@ -177,17 +182,40 @@ def IndianCuisineTransformTo (recipe):
 				for key1, value1 in ing.items():
 					#print(ings)
 					if type(value1) == str:
-						if any (x in value1 for x in my_breads): #replace bread with naan
-							ing[key1] = "naan"
-						if any(x in value1 for x in my_sauces):
+						for x in my_breads:
+							if x in value1.lower(): #replace bread with naan
+								ing[key1] = "naan"
+								my_bread = x
+						if any(x in value1.lower() for x in my_sauces):
 							ing[key1] = "coriander chutney"
-						if "butter" in value1:
+						if "butter" in value1.lower():
 							ing[key1] = "ghee"
-						if "oil" in value1:
+						if "oil" in value1.lower():
 							ing[key1] = "mustard oil"
-		if key == "Methods":
-			for methods in value: 
-				if any (x in methods for x in cooking_methods):
+						if "rice" in value1.lower():
+							ing[key1] = "biryani"
+							recipe['Ingredients'].append({'Name': "Biryani Masala", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+							recipe['Steps']['Added Step 1'] = 'Before adding the biryani to your meal, fry the biryani masala for 10 minutes on medium heat. When finished, mix the fried masala with the biryani.'
+		if key == "Steps":
+			for key2, value2 in value.items():
+				#for x in my_breads:
+					#print(x)
+				if my_bread in value2.lower():
+					print(my_bread)
+					value[key2] = value2.replace(my_bread,"naan") 
+					print(value)
+				#for x in my_sauces:
+					#if x in value2.lower():
+						#value[key2] = value2.replace(x, "coriander chutney")
+				if "butter" in value2.lower():
+					value[key2] = value2.replace("butter", "ghee")
+				if "oil" in value2.lower():
+					value[key2] = value2.replace("oil", "mustard oil")
+				if "rice" in value2.lower():
+					value[key2] = value2.replace("rice", "biryani")
+
+
+	return recipe
 
 
 
