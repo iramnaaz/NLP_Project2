@@ -15,7 +15,24 @@ else:
 	recipe = {}
 	with open('recipe.json', 'r') as f:
 	    recipe = json.load(f)
-	print(recipe)
+	
+	while(1):
+		print("Please enter which transformation you would like to do on your recipe:")
+		print("0. Quit")
+		print("1. Transform recipe to vegetarian")
+		print("2. Transform recipe from vegetarian")
+		print("3. Transform recipe to Indian Cuisine")
+		choice = input()
+		if choice == '0':
+			break
+		if choice == '1':
+			print("Vegetarian Transformation: ")
+		elif choice == '2':
+			print("Non-Vegetarian Transformation: ")
+		elif choice == '3':
+			print("Indian Transformation: ")
+		else:
+			print("Not a valid Transformation")
     # meat_lasagna = rf.search_recipes('meat lasagna')[0]
     # res = rf.scrape_recipe(meat_lasagna)
     # # print("res ", res)
