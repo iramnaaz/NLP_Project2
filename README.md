@@ -33,6 +33,11 @@ We have given the following options to a user to choose from:
 Transform to Vegetarian, Transform to Non-Vegetarian, Transform to Healthy, Transform to Chinese,Transform to Indian, Scale by a Multiplier.
 
 Main program:
-The main have a user interface to determines what the user wants the program to do. It call methods in transform and parse to get the recipes/data and print out the recipe(s) in a human-friendly format (to the console).
+The main file has a user interface that allows the user to determine what the program should do. It call methods in transform and parse to get the recipes/data and print out the recipe(s) in a human-friendly format (to the console).
+
+Instructions for running our recipe parser and transformations and viewing the output:
+1. Open the terminal and run the command: python3 main_file.py
+2. Follow the prompt to enter your URL and choose your transformation(s)
+3. Once you enter your designated inputs, you should be able to view the original parsed recipe and the transformed recipe!
 
 Thank You!
