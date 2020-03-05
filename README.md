@@ -17,7 +17,7 @@ Menu
 -> To view the scraped data, Ingredients, Tools, Methods, Steps and nutrients
 -> Transform to Vegetarian
 -> Transform to Non-Vegetarian
--> Transform to Healthy
+-> Transform from Healthy
 -> Transform to Chinese
 -> Transform to Indian
 
@@ -29,7 +29,7 @@ We then created the parsers for ingredients, tools, methods, nutrients and steps
 Transformations:
 We have given the following options to a user to choose from:
 
-Transform to Vegetarian, Transform to Non-Vegetarian, Transform to and from Healthy, Transform to Chinese,Transform to Indian.
+Transform to Vegetarian, Transform to Non-Vegetarian, Transform from Healthy, Transform to Chinese,Transform to Indian.
 
 Main program:
 The main have a user interface to determines what the user wants the program to do. It call methods in transform and parse to get the recipes/data and print out the recipe(s) in a human-friendly format (to the console).
