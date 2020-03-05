@@ -42,7 +42,6 @@ substitutions = {
     'jam': 'fresh strawberry',
     'peanut butter': 'tahini',
     'pancake': 'whole wheat coconut pancake', 
-    'mushroom': 'tofu',
     'black pepper': 'cayenne pepper',
     'butter': 'low-fat greek yogurt',
     'biscuit': "granola",

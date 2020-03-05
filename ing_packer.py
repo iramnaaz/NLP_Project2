@@ -70,4 +70,4 @@ def num_check(num):
 		x = int(s[0])/int(s[1])
 		return x
 	else:
-		return int(num)
+		return float(num)
