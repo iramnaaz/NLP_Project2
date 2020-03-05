@@ -110,7 +110,9 @@ client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 
 meats = ["beef", "meat", "pork", "chicken breast", "mutton thigh", "t-bone steak", "ground beef", "ham", "chicken", "bacon", "salami", "steak", "turkey", "duck", "lamb", "mutton", "duck", "veal", "sausage", "tilapia", "halibut", "cod", "salmon", "shrimp", "lobster", "crab", "catfish", "trout", "sardines", "tuna"]
 non_meat_subs = ["tofu", "tempeh", "seitan", "textured vegetable protein", "jackfruit", "mushroom", "lentils", "beans"]
+fish = ["tilapia", "halibut", "cod", "salmon", "shrimp", "lobster", "crab", "catfish", "trout", "sardines", "tuna"] 
 joined_meats = meats + non_meat_subs
+joined_meats_w_fish = meats + fish
 
 #do pescatarian too
 #could not find a way to distinguish between meat tagger but can use the text search feature of usda
@@ -132,6 +134,8 @@ def VegetarianTransformTo (recipe):
 		if key == "Steps":
 			for step in new_steps:
 				#print(step)
+				number = new_steps.index(step)
+				temp = step
 				for x in meats:
 					#print(x)
 					if x in step:
@@ -139,9 +143,111 @@ def VegetarianTransformTo (recipe):
 						#new_steps = recipe['Recipe']['Steps']
 						#print(x)
 						#print(step)
-						number = new_steps.index(step)
-						new_steps.remove(step)
+						
+						new_steps.remove(temp)
 						new_steps.insert(number, step.replace(x, my_sub))
+						temp = new_steps[number]
+
+	#recipe['Recipe'].pop("Steps", None)
+	#print(new_steps)
+	recipe['Recipe']['Steps'] = new_steps
+	#print (recipe['Recipe']['Steps'])
+	return recipe
+
+def PescatarianTransformTo (recipe):
+
+	new_steps = recipe['Recipe']['Steps']
+	my_sub = random.choice(fish)
+	for key, value in recipe["Recipe"].items():
+		if key == "Ingredients":
+			for ing in value: #value is array, ing are the ingrediants
+				for key1, value1 in ing.items():
+					#print(ings)
+					if type(value1) == str:
+						if any(x in value1 for x in meats): #replace value1 with my_stirng if you want to use usda lib
+							#print(value1)
+							ing[key1] = my_sub
+		if key == "Steps":
+			for step in new_steps:
+				#print(step)
+				number = new_steps.index(step)
+				temp = step
+				for x in meats:
+					#print(x)
+					if x in step:
+						#print(value2.replace(x,"tofu"))
+						#new_steps = recipe['Recipe']['Steps']
+						#print(x)
+						#print(step)
+						
+						new_steps.remove(temp)
+						new_steps.insert(number, step.replace(x, my_sub))
+						temp = new_steps[number]
+
+	#recipe['Recipe'].pop("Steps", None)
+	#print(new_steps)
+	recipe['Recipe']['Steps'] = new_steps
+	#print (recipe['Recipe']['Steps'])
+	return recipe
+
+
+def PescatarianTransformFrom (recipe):
+	#convert fish to meat
+	new_steps = recipe['Recipe']['Steps']
+	my_sub = random.choice(meats)
+	for key, value in recipe["Recipe"].items():
+		if key == "Ingredients":
+			for ing in value: #value is array, ing are the ingrediants
+				for key1, value1 in ing.items():
+					#print(ings)
+					if type(value1) == str:
+						if any(x in value1 for x in fish): #replace value1 with my_stirng if you want to use usda lib
+							#print(value1)
+							ing[key1] = my_sub
+		if key == "Steps":
+			for step in new_steps:
+				#print(step)
+				number = new_steps.index(step)
+				temp = step
+				for x in fish:
+					#print(x)
+					if x in step:
+						#print(value2.replace(x,"tofu"))
+						#new_steps = recipe['Recipe']['Steps']
+						#print(x)
+						#print(step)
+						
+						new_steps.remove(temp)
+						new_steps.insert(number, step.replace(x, my_sub))
+						temp = new_steps[number]
+
+	#if there is no fish present, then we need to add meat to recipe
+
+		vegetarian = 1
+		for key, value in recipe['Recipe'].items():
+			if key == "Ingredients":
+				#print(value)
+				for ing in value: 
+					for key1, value1 in ing.items():
+						#print(value1)
+						if type(value1) == str:
+							#print(value1)
+							for x in meats:
+								#print(value1)
+								if x in value1:
+									vegetarian = 0
+		#gotta add meat bc there is on if
+		if vegetarian == 1: 
+			recipe['Recipe']['Ingredients'].append({'quantity': 1, 'measurement': "pound", 'name': my_sub})
+			#new_steps = recipe['Recipe']['Steps']
+			new_steps.append ('Crumble the ' + my_sub +' into a large cast-iron skillet over medium-high heat. Stir frequently, until '+ my_sub +' is cooked well.;')
+			new_steps.append('Add the cooked ' + my_sub + ' to the rest of the dish.')
+			recipe['Recipe']['Tools'].append('large cast-iron skillet ')
+
+
+
+
+
 
 	#recipe['Recipe'].pop("Steps", None)
 	#print(new_steps)
@@ -209,17 +315,21 @@ def VegetarianTransformFrom (recipe):
 							#print(value1)
 							ing[key1] = my_meat
 		if key == "Steps":
-			for step in recipe['Recipe']['Steps']:
+			for step in new_steps: #recipe['Recipe']['Steps']:
+				number = new_steps.index(step)
+				temp = step
 				for x in non_meat_subs:
 					if x in step:
 						#print(value2.replace(x,"tofu"))
 						#new_steps = recipe['Recipe']['Steps']
-						number = recipe['Recipe']['Steps'].index(step)
-						recipe['Recipe']['Steps'].remove(step)
-						step = step.replace(x, my_meat) 
-						new_steps.insert(number, step)
+						#number = recipe['Recipe']['Steps'].index(step)
+						#recipe['Recipe']['Steps'].remove(step)
+						new_steps.remove(temp)
+						#step = step.replace(x, my_meat) 
+						new_steps.insert(number, step.replace(x, my_meat))
+						temp = new_steps[number]
 
-	recipe['Recipe'].pop("Steps", None)
+	#recipe['Recipe'].pop("Steps", None)
 	recipe['Recipe']['Steps'] = new_steps
 
 	return recipe					

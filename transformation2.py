@@ -33,9 +33,9 @@ substitutions = {
     'pasta': 'Quinoa pasta',
     'cheese': 'low-fat cheese',
     'thigh': 'breast', 
-    'beef': 'chicken',
+    'beef': 'lean beef',
     'pork': 'turkey',
-    'sausage': 'ham', 
+    'sausage': 'chicken', 
     'oil': 'organic oil',
     'mustard': 'horseradish',
     'ranch dressing': 'sliced avocado', 
@@ -112,7 +112,6 @@ ExampleRecipe = {
 
 def HealthyTransformTo (recipe):
     unhealthy = substitutions.keys() #list of unhealthy items (keys)
-
     new_steps = recipe['Recipe']['Steps']
     for key, value in recipe['Recipe'].items():
         if key == 'Ingredients':
@@ -153,6 +152,8 @@ def DoubleOrHalf (recipe, multiplier):
                             ing['quantity'] = str(int(value1) * multiplier) 
                         except:
                             ing['quantity'] = str(multiplier) + "*" + value1
+
+
 
                 #x = float(ing['quantity'])
                 #y = x * multiplier 
