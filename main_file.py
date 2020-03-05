@@ -30,6 +30,8 @@ else:
 		print("6. Transform recipe to a healthy version")
 		print("7. Transform recipe into pescatarian")
 		print("8. Transform recipe from pescatarian")
+		print("9. Transform recipe into vegan")
+		print("10. Transform recipe into gluten-free")
 		choice = input()
 		if choice == '0':
 			break
@@ -166,6 +168,40 @@ else:
 			print("\nYou can also see pescatarian_recipe.json for the transformed recipe.")
 			with open('pescatarian_recipe.json', 'w') as outfile:
 				json.dump(PescatarianRecipe, outfile)
+			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
+			print("1. Continue transforming the recipe.")
+			print("2. Start from scratch with a new recipe.")
+			my_choice = input()
+			if my_choice == '2':
+				print("Please press 0 when prompted for a transformation and then run 'python3 main_file.py' again in your command line.")
+		elif choice == '9':
+			print("\n")
+			print("Original Recipe: \n")
+			print(recipe)
+			VeganRecipe = VeganTransform(recipe)
+			print('\n')
+			print("Vegan Transformation: \n")
+			print(VeganRecipe)
+			print("\nYou can also see vegan_recipe.json for the transformed recipe.")
+			with open('vegan_recipe.json', 'w') as outfile:
+				json.dump(VeganRecipe, outfile)
+			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
+			print("1. Continue transforming the recipe.")
+			print("2. Start from scratch with a new recipe.")
+			my_choice = input()
+			if my_choice == '2':
+				print("Please press 0 when prompted for a transformation and then run 'python3 main_file.py' again in your command line.")
+		elif choice == '10':
+			print("\n")
+			print("Original Recipe: \n")
+			print(recipe)
+			GlutenFreeRecipe = GlutenFreeTransform(recipe)
+			print('\n')
+			print("GlutenFree Transformation: \n")
+			print(GlutenFreeRecipe)
+			print("\nYou can also see gluten_free_recipe.json for the transformed recipe.")
+			with open('gluten_free_recipe.json', 'w') as outfile:
+				json.dump(GlutenFreeRecipe, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
 			print("1. Continue transforming the recipe.")
 			print("2. Start from scratch with a new recipe.")

@@ -162,5 +162,138 @@ def DoubleOrHalf (recipe, multiplier):
     return recipe
 
 
+gluten_free_subs = {
+    
+
+    'pasta': 'corn noodles',
+    'semolina': 'polenta',
+    'bulgur': 'rice',
+    'couscous': 'quinoa',
+    'wheat bran': 'gluten-free oat bran',
+    'bread': 'gluten-free bread',
+    'cereal': 'corn flakes',
+    'granola': 'gluten-free granola mix',
+    'ovaltine': 'cocoa',
+    'beer': 'gluten-free beer',
+    'wheat': 'almond flour',
+    'rye': 'almond flour',
+    'barley': 'almond flour',
+    'pasta': 'chickpea pasta',
+    'noodle': 'soba noodle',
+    'cracker': 'gluten-free cracker',
+    'cake': 'coconut flour cake',
+    'pancake': 'coconut flour pancake',
+    'soy sauce': 'coconut aminos sauce',
+    'tortilla': 'raw spinach rap'
+
+}
+
+
+vegan_subs = {
+    
+    'milk': 'oak milk',
+    'cheese': 'almond cheese',
+    'mozzarella': 'daiya',
+    'blue': 'herb cashew',
+    'ricotta': 'almond',
+    'egg': 'siken tofu',
+    'chicken': 'tempeh',
+    'beef': 'seitan',
+    'turkey': 'tofu',
+    'steak': 'seitan',
+    'shrimp': 'legumes',
+    'tilapia': 'jackfruit',
+    'fish': 'tempeh',
+    'meat': 'tofu',
+    'salmon': 'tofu',
+    'lamb': 'seitan',
+    'pork': 'seitan',
+    'veal': 'tempeh',
+    'meat': 'tempeh',
+    'anchovies': 'tofu',
+    'squid': 'mushrooms',
+    'scallops': 'zucchini',
+    'calamari': 'mushrooms',
+    'mussels': 'mushrooms',
+    'crab': 'tempeh',
+    'lobster': 'seitan',
+    'yogurt': 'soy yogurt',
+    'butter': 'margarine',
+    'cream': 'cashew cream',
+    'honey': 'maple syrup',
+    'noodle': 'zucchini noodle',
+    'pasta': 'spaghetti squash',
+    'spaghetti': 'spaghetti squash',
+    'sausage': 'vegan sausage'
+
+}
+
+
+def GlutenFreeTransform(recipe):
+
+    GlutenFree = gluten_free_subs.keys() #list of unhealthy items (keys)
+    new_steps = recipe['Recipe']['Steps']
+    for key, value in recipe['Recipe'].items():
+        if key == 'Ingredients':
+            for ing in value: # ing being the ingredient object
+                for key1, value1 in ing.items():
+                    #print(value1)
+                    if key1 == 'name':
+                        #print(value1)
+                        for glutenfree_item in GlutenFree:
+                            if glutenfree_item in value1: #item-> unhealthy item, value1-> name of ing
+                                replacement = gluten_free_subs[glutenfree_item] #unhealthy item as a key
+                                number = recipe['Recipe']['Ingredients'].index(ing)
+                                recipe['Recipe']['Ingredients'][number][key1] = value1.replace(glutenfree_item,replacement)
+
+
+        if key == 'Steps':
+            for step in new_steps:
+                number = new_steps.index(step)
+                temp = step
+                for item in GlutenFree:
+                    if item in step:
+                        new_steps.remove(temp)
+                        new_steps.insert(number, temp.replace(item, gluten_free_subs[item])) 
+                        temp = new_steps[number]
+    return recipe
+                  
+
+
+def VeganTransform(recipe):
+
+    vegan = vegan_subs.keys() #list of unhealthy items (keys)
+    new_steps = recipe['Recipe']['Steps']
+    for key, value in recipe['Recipe'].items():
+        if key == 'Ingredients':
+            for ing in value: # ing being the ingredient object
+                for key1, value1 in ing.items():
+                    #print(value1)
+                    if key1 == 'name':
+                        #print(value1)
+                        for vegan_item in vegan:
+                            if vegan_item in value1: #item-> unhealthy item, value1-> name of ing
+                                replacement = vegan_subs[vegan_item] #unhealthy item as a key
+                                number = recipe['Recipe']['Ingredients'].index(ing)
+                                recipe['Recipe']['Ingredients'][number][key1] = value1.replace(vegan_item,replacement)
+
+        if key == 'Steps':
+            for step in new_steps:
+                number = new_steps.index(step)
+                temp = step
+                for item in vegan:
+                    if item in step:
+                        new_steps.remove(temp)
+                        new_steps.insert(number, temp.replace(item, vegan_subs[item])) 
+                        temp = new_steps[number]
+
+    return recipe
+                  
+
+
+
+
+
+
 #print(HealthyTransformTo(ExampleRecipe))
 #print(DoubleOrHalf(ExampleRecipe, 0.5))
