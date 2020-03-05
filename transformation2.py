@@ -5,22 +5,53 @@ client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 non_healthy_foods = ['buttermilk']
 healthy_foods = ['skim milk']
 
+#incldue plurals or larger words that contain others before their counterparts 
 substitutions = {
     'butter': 'margarine',
     'egg': 'egg white',
     'buttermilk': 'skim milk',
-    'whole milk': 'skim milk',
+    'milk': 'almond milk',
     'bacon': 'turkey bacon',
     'white rice': 'brown rice',
     'chocolate': 'dark chocolate',
     'couscous': 'quinoa',
-    'croutons': 'mixed nuts',
+    'crouton': 'mixed nut',
     'cream': 'coconut milk',
     'flour tortilla': 'corn tortilla',
     'frosting': 'meringue',
     'sour cream': 'fat-free yogurt',
-    'all-purpose flour': 'whole wheat flour',
-    'ground beef': 'ground turkey'
+    'flour': 'whole wheat flour',
+    'ground beef': 'ground turkey',
+    'bread': 'whole wheat bread',
+    'sugar': 'artificial sweetner',
+    'potato': 'cauliflower',
+    'mayonnaise': 'hummus',
+    'mayo': 'hummus',
+    'tomato': "red pepper",
+    'bean': 'soy bean',
+    'noodle': 'zuchinni noodle',
+    'pasta': 'Quinoa pasta',
+    'cheese': 'low-fat cheese',
+    'thigh': 'breast', 
+    'beef': 'chicken',
+    'pork': 'turkey',
+    'sausage': 'ham', 
+    'oil': 'organic oil',
+    'mustard': 'horseradish',
+    'ranch dressing': 'sliced avocado', 
+    'jam': 'fresh strawberry',
+    'peanut butter': 'tahini',
+    'pancake': 'whole wheat coconut pancake', 
+    'mushroom': 'tofu',
+    'black pepper': 'cayenne pepper',
+    'butter': 'low-fat greek yogurt',
+    'biscuit': "granola",
+    'salt': "garlic"
+
+
+
+
+
 }
 
 ExampleRecipe = {
@@ -78,33 +109,55 @@ ExampleRecipe = {
 }
 
 def HealthyTransformTo (recipe):
-    unhealthy = substitutions.keys()
-    for key, value in recipe.items():
+    unhealthy = substitutions.keys() #list of unhealthy items (keys)
+
+    new_steps = recipe['Recipe']['Steps']
+    for key, value in recipe['Recipe'].items():
         if key == 'Ingredients':
             for ing in value: # ing being the ingredient object
                 for key1, value1 in ing.items():
-                    if key1 == 'Name' and value1 in unhealthy:
-                        replacement = substitutions[value1]
-                        ing[key1] = replacement
+                    #print(value1)
+                    if key1 == 'name':
+                        #print(value1)
+                        for unhealthy_item in unhealthy:
+                            if unhealthy_item in value1: #item-> unhealthy item, value1-> name of ing
+                                replacement = substitutions[unhealthy_item] #unhealthy item as a key
+                                number = recipe['Recipe']['Ingredients'].index(ing)
+                                recipe['Recipe']['Ingredients'][number][key1] = value1.replace(unhealthy_item,replacement)
 
 
         if key == 'Steps':
-            for key2, value2 in value.items():
-                for x in unhealthy:
-                    if x in value2:
-                        value[key2] = value2.replace(x, substitutions[x])
+            for step in new_steps:
+                number = new_steps.index(step)
+                temp = step
+                for item in unhealthy:
+                    if item in step:
+                        new_steps.remove(temp)
+                        new_steps.insert(number, temp.replace(item, substitutions[item])) 
+                        temp = new_steps[number]
     return recipe
 
 def DoubleOrHalf (recipe, multiplier):
     # Input is a recipe and a multiplier, output is the recipe with each ingredient scalled by that multiplier
     # For example, if the multiplier is 2 each ingredient in the returned recipe will have double the quantity of the initial recipe
-    for key, value in recipe.items():
+    for key, value in recipe['Recipe'].items():
         if key == 'Ingredients':
-            for ing in value:
-                ing['Quantity'] *= multiplier
+            for ing in value: #ing is type dict, value is type array
+                #print(int(ing['quantity']))
+                for key1, value1 in ing.items():
+                    if key1 == 'quantity':
+                        x = 0 
+                        try:
+                            ing['quantity'] = str(int(value1) * multiplier) 
+                        except:
+                            ing['quantity'] = "2*" + value1
+
+                #x = float(ing['quantity'])
+                #y = x * multiplier 
+                #ing['quantity'] = str(y)
 
     return recipe
 
 
-print(HealthyTransformTo(ExampleRecipe))
-print(DoubleOrHalf(ExampleRecipe, 0.5))
+#print(HealthyTransformTo(ExampleRecipe))
+#print(DoubleOrHalf(ExampleRecipe, 0.5))
