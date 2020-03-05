@@ -118,7 +118,7 @@ joined_meats = meats + non_meat_subs
 #include everything that is a string in the search? helps with onion but not red bell pepper
 def VegetarianTransformTo (recipe):
 
-	new_steps = []
+	new_steps = [recipe['Recipe']['Steps']]
 	my_sub = random.choice(non_meat_subs)
 	for key, value in recipe["Recipe"].items():
 		if key == "Ingredients":
@@ -134,13 +134,13 @@ def VegetarianTransformTo (recipe):
 				for x in meats:
 					if x in step:
 						#print(value2.replace(x,"tofu"))
-						new_steps = recipe['Recipe']['Steps']
+						#new_steps = recipe['Recipe']['Steps']
 						number = recipe['Recipe']['Steps'].index(step)
 						recipe['Recipe']['Steps'].remove(step)
 						step = step.replace(x, my_sub)
 						new_steps.insert(number, step)
 
-	recipe['Recipe'].pop("Steps", None)
+	#recipe['Recipe'].pop("Steps", None)
 	recipe['Recipe']['Steps'] = new_steps
 
 	return recipe
@@ -301,6 +301,7 @@ def IndianTransformToV2 (recipe):
 			for step in new_steps:
 				#for x in my_breads:
 					#print(x)
+				print(step)
 				if my_bread in step.lower():
 					#print(my_bread) 
 					#step = step.replace(my_bread,"naan") 
