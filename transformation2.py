@@ -10,14 +10,17 @@ substitutions = {
     'egg': 'egg white',
     'buttermilk': 'skim milk',
     'whole milk': 'skim milk',
-    'bacon': 'avocado',
+    'bacon': 'turkey bacon',
     'white rice': 'brown rice',
     'chocolate': 'dark chocolate',
     'couscous': 'quinoa',
     'croutons': 'mixed nuts',
     'cream': 'coconut milk',
     'flour tortilla': 'corn tortilla',
-    'frosting': 'meringue'
+    'frosting': 'meringue',
+    'sour cream': 'fat-free yogurt',
+    'all-purpose flour': 'whole wheat flour',
+    'ground beef': 'ground turkey'
 }
 
 ExampleRecipe = {
@@ -92,7 +95,16 @@ def HealthyTransformTo (recipe):
                         value[key2] = value2.replace(x, substitutions[x])
     return recipe
 
-def main():
-	print(HealthyTransformTo(ExampleRecipe))
+def DoubleOrHalf (recipe, multiplier):
+    # Input is a recipe and a multiplier, output is the recipe with each ingredient scalled by that multiplier
+    # For example, if the multiplier is 2 each ingredient in the returned recipe will have double the quantity of the initial recipe
+    for key, value in recipe.items():
+        if key == 'Ingredients':
+            for ing in value:
+                ing['Quantity'] *= multiplier
 
-main()
+    return recipe
+
+
+print(HealthyTransformTo(ExampleRecipe))
+print(DoubleOrHalf(ExampleRecipe, 0.5))
