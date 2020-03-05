@@ -46,7 +46,6 @@ substitutions = {
     'butter': 'low-fat greek yogurt',
     'biscuit': "granola",
     'salt': "garlic",
-    'sauce': "hummus",
     'namak': "garlic"
 
 
