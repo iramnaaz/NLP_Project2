@@ -5,6 +5,13 @@ client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 non_healthy_foods = ['buttermilk']
 healthy_foods = ['skim milk']
 
+substitutions = {
+    'butter': 'margarine',
+    'egg': 'egg white',
+    'buttermilk': 'skim milk',
+    'bacon': 'avocado'
+}
+
 ExampleRecipe = {
     'Ingredients':
         [{
@@ -60,26 +67,24 @@ ExampleRecipe = {
 }
 
 def HealthyTransformTo (recipe):
-	my_sub = random.choice(healthy_foods)
-	for key, value in recipe.items():
-		if key == "Ingredients":
-			for ing in value: #value is array, ing are the ingrediants
-				for key1, value1 in ing.items():
-					if type(value1) == str:
-						foods_search = client.search_foods(value1, 1)
-						my_food = next(foods_search)
-						report = client.get_food_report(my_food.id)
-						my_string = report.food.name.lower()
-						if any(x in value1 for x in non_healthy_foods): #replace value1 with my_stirng if you want to use usda lib
-							ing[key1] = my_sub
-		if key == "Steps":
-			for key2, value2 in value.items():
-				for x in non_healthy_foods:
-					if x in value2:
-						value[key2] = value2.replace(x, my_sub)
+    unhealthy = substitutions.keys()
+    for key, value in recipe.items():
+        if key == 'Ingredients':
+            for ing in value: # ing being the ingredient object
+                for key1, value1 in ing.items():
+                    if key1 == 'Name' and value1 in unhealthy:
+                        replacement = substitutions[value1]
+                        ing[key1] = replacement
 
 
-	return recipe
+        if key == 'Steps':
+            for key2, value2 in value.items():
+                for x in unhealthy:
+                    if x in value2:
+                        value[key2] = value2.replace(x, substitutions[x])
+    return recipe
 
 def main():
 	print(HealthyTransformTo(ExampleRecipe))
+
+main()
