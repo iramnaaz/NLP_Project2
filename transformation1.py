@@ -118,7 +118,7 @@ joined_meats = meats + non_meat_subs
 #include everything that is a string in the search? helps with onion but not red bell pepper
 def VegetarianTransformTo (recipe):
 
-	new_steps = [recipe['Recipe']['Steps']]
+	new_steps = recipe['Recipe']['Steps']
 	my_sub = random.choice(non_meat_subs)
 	for key, value in recipe["Recipe"].items():
 		if key == "Ingredients":
@@ -130,19 +130,23 @@ def VegetarianTransformTo (recipe):
 							#print(value1)
 							ing[key1] = my_sub
 		if key == "Steps":
-			for step in recipe['Recipe']['Steps']:
+			for step in new_steps:
+				#print(step)
 				for x in meats:
+					#print(x)
 					if x in step:
 						#print(value2.replace(x,"tofu"))
 						#new_steps = recipe['Recipe']['Steps']
-						number = recipe['Recipe']['Steps'].index(step)
-						recipe['Recipe']['Steps'].remove(step)
-						step = step.replace(x, my_sub)
-						new_steps.insert(number, step)
+						#print(x)
+						#print(step)
+						number = new_steps.index(step)
+						new_steps.remove(step)
+						new_steps.insert(number, step.replace(x, my_sub))
 
 	#recipe['Recipe'].pop("Steps", None)
+	#print(new_steps)
 	recipe['Recipe']['Steps'] = new_steps
-
+	#print (recipe['Recipe']['Steps'])
 	return recipe
 
 #caseI: no meats or non-meats are in the whole recipe and we need to add some meat
@@ -165,7 +169,7 @@ VegFrom = {"Recipe": {"Ingredients": [{"quantity": "1", "name": "long thin bague
 #fix steps part?
 def VegetarianTransformFrom (recipe):
 
-	new_steps = []
+	new_steps = recipe['Recipe']['Steps']
 	#Case I - no meat or meat subs are present
 	my_meat = random.choice(meats)
 	vegetarian = 1
@@ -184,7 +188,7 @@ def VegetarianTransformFrom (recipe):
 	#gotta add meat bc there are no meats and no non-meats
 	if vegetarian == 1: 
 		recipe['Recipe']['Ingredients'].append({'quantity': 1, 'measurement': "pound", 'name': my_meat})
-		new_steps = recipe['Recipe']['Steps']
+		#new_steps = recipe['Recipe']['Steps']
 		new_steps.append ('Crumble the ' + my_meat +' into a large cast-iron skillet over medium-high heat. Stir frequently, until '+ my_meat +' is cooked well.;')
 		new_steps.append('Add the cooked ' + my_meat + ' to the rest of the dish.')
 
@@ -209,7 +213,7 @@ def VegetarianTransformFrom (recipe):
 				for x in non_meat_subs:
 					if x in step:
 						#print(value2.replace(x,"tofu"))
-						new_steps = recipe['Recipe']['Steps']
+						#new_steps = recipe['Recipe']['Steps']
 						number = recipe['Recipe']['Steps'].index(step)
 						recipe['Recipe']['Steps'].remove(step)
 						step = step.replace(x, my_meat) 

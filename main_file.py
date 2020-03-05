@@ -3,7 +3,7 @@ from ingredient_scrape import RecipeFetcher
 from ing_steps import fetch_and_pack
 from transformation1 import *
 from optional_transformation import *
-from transformation2 import*
+from transformation2 import *
 import json
 
 print("Please input a recipe URL:")
@@ -68,11 +68,11 @@ else:
 			with open('chinese_recipe.json', 'w') as outfile:
 				json.dump(ChineseRecipe, outfile)
 		elif choice == '5':
-			print("Original Recipe: \n")
-			print(recipe)
 			print("Please enter a multiplier by which you would like to change the size of your recipe.")
 			my_multiplier = input()
-			Scaled_Recipe = DoubleOrHalf(recipe, my_multiplier)
+			print("Original Recipe: \n")
+			print(recipe)
+			Scaled_Recipe = DoubleOrHalf(recipe, float(my_multiplier))
 			print("Size Transformation: \n")
 			print(Scaled_Recipe)
 			print("\n")
