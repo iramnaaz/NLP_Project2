@@ -108,7 +108,7 @@ client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 
 
 
-meats = ["beef", "pork", "chicken breast", "mutton thigh", "t-bone steak", "ground beef", "ham", "chicken", "bacon", "salami", "steak", "turkey", "duck", "lamb", "mutton", "duck", "veal", "sausage", "tilapia", "halibut", "cod", "salmon", "shrimp", "lobster", "crab", "catfish", "trout", "sardines", "tuna"]
+meats = ["beef", "meat", "pork", "chicken breast", "mutton thigh", "t-bone steak", "ground beef", "ham", "chicken", "bacon", "salami", "steak", "turkey", "duck", "lamb", "mutton", "duck", "veal", "sausage", "tilapia", "halibut", "cod", "salmon", "shrimp", "lobster", "crab", "catfish", "trout", "sardines", "tuna"]
 non_meat_subs = ["tofu", "tempeh", "seitan", "textured vegetable protein", "jackfruit", "mushroom", "lentils", "beans"]
 joined_meats = meats + non_meat_subs
 
@@ -258,6 +258,64 @@ ExampleRecipe2 = {"Recipe": {"Ingredients":
 	"When the Sambhar masala is finished frying, mix it into the rest of the dish."]}}
 
 
+indian_subs = {
+	
+	'cheese': 'paneer',
+	'bread': 'naan',
+	'toast': 'paratha',
+	'tortilla': 'naan',
+	'flatbread': 'chapati',
+	'bun': 'naan',
+	'pita': 'roti,',
+	'bagel': 'naan',
+	'pancake': 'chapati',
+	'rice': 'biryani',
+	'oil': 'mustard oil',
+	'butter': 'ghee',
+	'lamb': 'gosht',
+	'mayo': 'coriander chutney',
+	'mayonnaise': 'coriander chutney',
+	'okra': 'bhindi',
+	'chick peas': 'chana',
+	'cauliflower': 'gobi',
+	'broccoli': 'gobi',
+	'pasta': 'white rice',
+	'beef': 'lamb kebab',
+	'chicken': 'chicken tikka',
+	'bacon': 'chicken tikka',
+	'ham': 'chicken tandoori',
+	'sausage': 'seekh kebab',
+	'potato': 'aloo potato',
+	'lettuce': 'gobi',
+	'apple': 'mango',
+	'strawberry': 'mango',
+	'spaghetti': 'biryani',
+	'noodles': 'biryani',
+	'yogurt': 'dahi',
+	'lentil': 'dal',
+	'steak': 'shami kebab',
+	'dressing': 'chutney',
+	'ground beef': 'beef keema',
+	'soup': 'daal makhni',
+	'wasabi': 'jalapeno',
+	'olives': 'mushrooms',
+	'squash': 'bhindi',
+	'flour': 'chakki atta flour',
+	'tea': 'chai',
+	'coffee': 'chai',
+	'salmon': 'shami kebab',
+	'sugar': 'cheenee sugar',
+	'salt': 'namak salt',
+	'vegetable oil': 'mustard oil',
+	'olive oil': 'mustard oil',
+	'canola oil': 'mustard oil',
+	'ranch': 'coriander chutney',
+	'chuck roast': 'lamb kebab',
+	'taco': 'roti',
+	'burrito': 'naan',
+	'sauce': 'chutney'
+
+}
 
 
 
@@ -269,10 +327,9 @@ def IndianTransformToV2 (recipe):
 	#recipe['Ingredients'].append({'Name': "Coriander Chutney", 'Quantity': 0.5, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
 
 	cooked_val = 0
-	my_bread = ""
-	my_sauce = ""
+	#my_bread = ""
+	#my_sauce = ""
 	new_steps = recipe['Recipe']['Steps']
-	my_stuff = new_steps
 	#print(my_stuff)
 	for key, value in recipe['Recipe'].items():
 		if key == "Ingredients":
@@ -383,6 +440,81 @@ def IndianTransformToV2 (recipe):
 
 	return recipe
 
+
+def IndianTransform (recipe):
+	#PART 1
+	masala = random.choice(my_masalas)
+	if not "frying pan" in recipe['Recipe']['Tools']:
+		recipe['Recipe']['Tools'].append("frying pan")
+
+	cooked_val = 0
+	new_steps = recipe['Recipe']['Steps']
+
+	indian = indian_subs.keys()
+	for key, value in recipe['Recipe'].items():
+		if key == 'Ingredients':
+			for ing in value: # ing being the ingredient object
+				for key1, value1 in ing.items():
+					if key1 == 'name':
+						for indian_item in indian:
+							if indian_item in value1: #item-> unhealthy item, value1-> name of ing
+								replacement = indian_subs[indian_item] #unhealthy item as a key
+								number = recipe['Recipe']['Ingredients'].index(ing)
+								recipe['Recipe']['Ingredients'][number][key1] = value1.replace(indian_item,replacement)
+		if key == 'Steps':
+			for step in new_steps:
+				number = new_steps.index(step)
+				temp = step
+				for item in indian:
+					if item in step:
+						new_steps.remove(temp)
+						new_steps.insert(number, temp.replace(item, indian_subs[item])) 
+						temp = new_steps[number]
+
+
+
+
+	#PART 2: adding masala 
+	for methods in recipe['Recipe']['Methods']['Primary_cooking_method']: 
+		if any (x in methods for x in cooking_methods):
+			cooked_val = 1
+	if cooked_val == 1:
+		recipe['Recipe']['Ingredients'].append({'quantity': 0.5,'measurement': "cup", 'name': masala})
+		new_steps.append('Take the .5 cups of ' + masala + ' masala and pour into the frying pan. Fry over medium heat in 3 tablespoons of mustard oil for 10 minutes until browning occurs.') 
+		new_steps.append('When the ' + masala + ' masala is finished frying, mix it into the rest of the dish.')
+		if not "frying pan" in recipe['Recipe']['Tools']:
+			recipe['Recipe']['Tools'].append('frying pan')
+		if not "fry" in recipe['Recipe']['Methods']["alternative_cooking_method"]:
+			recipe['Recipe']['Methods']['alternative_cooking_method'].append('fry')
+	if cooked_val == 0:
+		recipe['Recipe']['Ingredients'].append({'name': masala, 'quantity': 0.5, 'measurement': "cup"})
+		recipe['Recipe']['Ingredients'].append({'name': "Kabuli chana", 'Quantity': 1, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+		#recipe['Ingredients'].append({'Name': "tomato ", 'Quantity': 1, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+		if not "boiling pot" in recipe['Recipe']['Tools']:
+			recipe['Recipe']['Tools'].append("boiling pot")
+		if not "bowl" in recipe['Recipe']['Tools']:
+			recipe['Recipe']['Tools'].append("bowl")
+		if not "frying pan" in recipe['Recipe']['Tools']:
+			recipe['Recipe']['Tools'].append("frying pan")
+		if not "wooden cooking spoon" in recipe['Recipe']['Tools']:
+			recipe['Recipe']['Tools'].append("wooden cooking spoon")
+		if not "fry" in recipe['Recipe']['Methods']["alternative_cooking_method"]:
+			recipe['Recipe']['Tools'].append("fry")
+		if not "mustard oil" in recipe['Recipe']['Tools']:
+			recipe['Recipe']['Ingredients'].append({'Name': "Mustard Oil", 'Quantity': 3, 'Measurement': "tablespoon", 'Descriptor': "", 'Preparation': ""})
+		#prev_steps = recipe['Recipe']['Steps']
+		new_steps.append('Boil 1 cup of Kabuli chana over medium-high heat for 10 minutes. Once cooked, remove Kabuli chana from the pot and place into a bowl.')
+		new_steps.append('Take the .5 cups of ' +  masala + ' and pour into the frying pan. Fry over medium heat in 3 tablespoons of mustard oil for 10 minutes until browning occurs.')
+		new_steps.append('Pour the fried Garam Masala mix into the bowl with the Kabuli channa and use the wooden spoon to mix together. Mix the Kabuli chana with the rest of your dish and enjoy!')
+
+	#print(recipe['Recipe']['Steps'])
+	#recipe['Recipe'].pop("Steps", None)
+	#new_steps.insert(recipe['Recipe']['Steps'])
+	#print(new_steps)
+	#print(prev_steps)
+	recipe['Recipe']['Steps'] = new_steps
+
+	return recipe
 
 
 #print(VegetarianTransformTo(VegFrom))

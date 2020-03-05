@@ -52,7 +52,7 @@ else:
 		elif choice == '3':
 			print("Original Recipe: \n")
 			print(recipe)
-			IndianRecipe = IndianTransformToV2(recipe)
+			IndianRecipe = IndianTransform(recipe)
 			print("Indian Transformation: \n")
 			print(IndianRecipe)
 			print("You can also see indian_recipe.json for the transformed recipe")

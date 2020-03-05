@@ -46,7 +46,9 @@ substitutions = {
     'black pepper': 'cayenne pepper',
     'butter': 'low-fat greek yogurt',
     'biscuit': "granola",
-    'salt': "garlic"
+    'salt': "garlic",
+    'sauce': "hummus",
+    'namak': "garlic"
 
 
 
@@ -150,7 +152,7 @@ def DoubleOrHalf (recipe, multiplier):
                         try:
                             ing['quantity'] = str(int(value1) * multiplier) 
                         except:
-                            ing['quantity'] = "2*" + value1
+                            ing['quantity'] = str(multiplier) + "*" + value1
 
                 #x = float(ing['quantity'])
                 #y = x * multiplier 
