@@ -17,19 +17,20 @@ Menu
 -> To view the scraped data, Ingredients, Tools, Methods, Steps and nutrients
 -> Transform to Vegetarian
 -> Transform to Non-Vegetarian
--> Transform from Healthy
+-> Transform to Healthy
 -> Transform to Chinese
 -> Transform to Indian
+-> Scale by a multiplier
 
 Steps:
 
-We have first donw the data analysis of most common ingredients which is used in the top recipes from AllRecipes.com website. 
+We have first done the data analysis of most common ingredients which is used in the top recipes from AllRecipes.com website. 
 We then created the parsers for ingredients, tools, methods, nutrients and steps(directions).
 
 Transformations:
 We have given the following options to a user to choose from:
 
-Transform to Vegetarian, Transform to Non-Vegetarian, Transform from Healthy, Transform to Chinese,Transform to Indian.
+Transform to Vegetarian, Transform to Non-Vegetarian, Transform to Healthy, Transform to Chinese,Transform to Indian, Scale by a Multiplier.
 
 Main program:
 The main have a user interface to determines what the user wants the program to do. It call methods in transform and parse to get the recipes/data and print out the recipe(s) in a human-friendly format (to the console).
