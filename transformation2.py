@@ -9,7 +9,15 @@ substitutions = {
     'butter': 'margarine',
     'egg': 'egg white',
     'buttermilk': 'skim milk',
-    'bacon': 'avocado'
+    'whole milk': 'skim milk',
+    'bacon': 'avocado',
+    'white rice': 'brown rice',
+    'chocolate': 'dark chocolate',
+    'couscous': 'quinoa',
+    'croutons': 'mixed nuts',
+    'cream': 'coconut milk',
+    'flour tortilla': 'corn tortilla',
+    'frosting': 'meringue'
 }
 
 ExampleRecipe = {
