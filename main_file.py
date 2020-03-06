@@ -39,11 +39,89 @@ else:
 			print("\n")
 			print("Original Recipe: \n")
 			print(recipe)
+			print("\nSee below for a human-readable format of your original recipe:\n")
+			for key, value in recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
 			vegRecipe1 = VegetarianTransformTo(recipe)
 			print('\n')
-			print("Transformation to Vegetarian: \n")
+			print("Transformation to Vegetarian (full recipe): \n")
 			print(vegRecipe1)
 			print("\nYou can also see veg_recipe.json for the transformed recipe.")
+			print("\nSee below for a human-readable version of your vegetarian recipe:\n")
+
+			for key, value in vegRecipe1['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
 			with open('veg_recipe.json', 'w') as outfile:
 			    json.dump(vegRecipe1, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
@@ -51,16 +129,98 @@ else:
 			print("2. Start from scratch with a new recipe.")
 			my_choice = input()
 			if my_choice == '2':
-				print("Please press 0 when prompted for a transformation and then run 'python3 main_file.py' again in your command line.")
+				print("\nPlease press 0 when prompted for a transformation and then run 'python3 main_file.py' again in your command line.")
 		elif choice == '2':
 			print("\n")
 			print("Original Recipe: \n")
 			print(recipe)
+
+			print("\nSee below for a human-readable format of your original recipe:\n")
+			for key, value in recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
+
 			unvegRecipe2 = VegetarianTransformFrom(recipe)
 			print('\n')
 			print("Transformation from Vegetarian: \n")
 			print(unvegRecipe2)
 			print("\nYou can also see unveg_recipe.json for the transformed recipe.")
+
+			print("\nSee below for a human-readable version of your vegetarian recipe:\n")
+
+			for key, value in unvegRecipe2['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
 			with open('unveg_recipe.json', 'w') as outfile:
 			    json.dump(unvegRecipe2, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
@@ -73,11 +233,96 @@ else:
 			print("\n")
 			print("Original Recipe: \n")
 			print(recipe)
+
+			print("\nSee below for a human-readable format of your original recipe:\n")
+			for key, value in recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
+
 			IndianRecipe = IndianTransform(recipe)
 			print('\n')
 			print("Indian Transformation: \n")
 			print(IndianRecipe)
 			print("\nYou can also see indian_recipe.json for the transformed recipe.")
+
+
+
+			print("\nSee below for a human-readable version of your Indian recipe:\n")
+
+			for key, value in IndianRecipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
+
 			with open('indian_recipe.json', 'w') as outfile:
 				json.dump(IndianRecipe, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
@@ -90,11 +335,91 @@ else:
 			print("\n")
 			print("Original Recipe: \n")
 			print(recipe)
+
+			print("\nSee below for a human-readable format of your original recipe:\n")
+			for key, value in recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
+
 			ChineseRecipe = transformation_to_chinese(recipe)
 			print('\n')
 			print("Chinese Transformation: \n")
 			print(ChineseRecipe)
 			print("\nYou can also see chinese_recipe.json for the transformed recipe.")
+
+			print("\nSee below for a human-readable version of your Chinese recipe:\n")
+			for key, value in ChineseRecipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
 			with open('chinese_recipe.json', 'w') as outfile:
 				json.dump(ChineseRecipe, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
@@ -109,12 +434,92 @@ else:
 			print("\n")
 			print("Original Recipe: \n")
 			print(recipe)
+
+			print("\nSee below for a human-readable format of your original recipe:\n")
+			for key, value in recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
 			Scaled_Recipe = DoubleOrHalf(recipe, float(my_multiplier))
 			print('\n')
 			print("Size Transformation: \n")
 			print(Scaled_Recipe)
 			print("\n")
 			print("\nYou can also see size_change.json for the transformed recipe.")
+
+			print("\nSee below for a human-readable version of your differently sized recipe:\n")
+			for key, value in Scaled_Recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
 			with open('size_change.json', 'w') as outfile:
 				json.dump(Scaled_Recipe, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
@@ -127,11 +532,91 @@ else:
 			print("\n")
 			print("Original Recipe: \n")
 			print(recipe)
+
+			print("\nSee below for a human-readable format of your original recipe:\n")
+			for key, value in recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
 			HealthyRecipe = HealthyTransformTo(recipe)
 			print('\n')
 			print("Healthy Transformation: \n")
 			print(HealthyRecipe)
 			print("\nYou can also see healthy_recipe.json for the transformed recipe.")
+
+			print("\nSee below for a human-readable version of your healthy recipe:\n")
+			for key, value in HealthyRecipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
 			with open('healthy_recipe.json', 'w') as outfile:
 				json.dump(HealthyRecipe, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
@@ -144,11 +629,92 @@ else:
 			print("\n")
 			print("Original Recipe: \n")
 			print(recipe)
+			print("\nSee below for a human-readable format of your original recipe:\n")
+			for key, value in recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+
+
+
+
 			PescatarianRecipe = PescatarianTransformTo(recipe)
 			print('\n')
 			print("Pescatarian Transformation: \n")
 			print(PescatarianRecipe)
-			print("\nYou can also see pescatarian_recipe.json for the transformed recipe.")
+			print("\nYou can also see pescatarian_recipe.json for the transformed recipe (full version).")
+			print("\nSee below for a human-readable version of your pescatarian recipe:\n")
+
+			for key, value in PescatarianRecipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
 			with open('pescatarian_recipe.json', 'w') as outfile:
 				json.dump(PescatarianRecipe, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
@@ -207,7 +773,7 @@ else:
 			print("2. Start from scratch with a new recipe.")
 			my_choice = input()
 			if my_choice == '2':
-				print("Please press 0 when prompted for a transformation and then run 'python3 main_file.py' again in your command line.")
+				print("\nPlease press 0 when prompted for a transformation and then run 'python3 main_file.py' again in your command line.")
 		else:
 			print("Not a valid Transformation")
     # meat_lasagna = rf.search_recipes('meat lasagna')[0]

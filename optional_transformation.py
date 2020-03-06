@@ -134,6 +134,10 @@ ExampleRecipe = {
 
 def transformation_to_chinese(recipe):
 
+    print("\n*******************************")
+    print("\nYour Chinese recipe is coming right up!\n")
+    print("Here are the transformations that were made to your recipe:")
+
     chinese = original_to_chinese_recipe_ing.keys() #list of unhealthy items (keys)
     new_steps = recipe['Recipe']['Steps']
     for key, value in recipe['Recipe'].items():
@@ -148,8 +152,10 @@ def transformation_to_chinese(recipe):
                                 replacement = original_to_chinese_recipe_ing[chinese_item] #unhealthy item as a key
                                 number = recipe['Recipe']['Ingredients'].index(ing)
                                 recipe['Recipe']['Ingredients'][number][key1] = value1.replace(chinese_item,replacement)
+                                print("\n\tReplaced " + value1 + " with " + original_to_chinese_recipe_ing[chinese_item])
 
 
+        num = 0
         if key == 'Steps':
             for step in new_steps:
                 number = new_steps.index(step)
@@ -159,6 +165,8 @@ def transformation_to_chinese(recipe):
                         new_steps.remove(temp)
                         new_steps.insert(number, temp.replace(item, original_to_chinese_recipe_ing[item])) 
                         temp = new_steps[number]
+                        num+=1
+            print("\n\tChanged " + str(num) + " steps in the recipe")
     return recipe
 
 

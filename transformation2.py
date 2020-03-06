@@ -109,6 +109,11 @@ ExampleRecipe = {
 }
 
 def HealthyTransformTo (recipe):
+
+    print("\n*******************************")
+    print("\nYour healthy recipe is coming right up!\n")
+    print("Here are the transformations that were made to your recipe:")
+
     unhealthy = substitutions.keys() #list of unhealthy items (keys)
     new_steps = recipe['Recipe']['Steps']
     for key, value in recipe['Recipe'].items():
@@ -123,9 +128,11 @@ def HealthyTransformTo (recipe):
                                 replacement = substitutions[unhealthy_item] #unhealthy item as a key
                                 number = recipe['Recipe']['Ingredients'].index(ing)
                                 recipe['Recipe']['Ingredients'][number][key1] = value1.replace(unhealthy_item,replacement)
+                                print("\n\tReplaced " + value1 + " with " + substitutions[unhealthy_item])
 
 
         if key == 'Steps':
+            num = 0
             for step in new_steps:
                 number = new_steps.index(step)
                 temp = step
@@ -134,11 +141,17 @@ def HealthyTransformTo (recipe):
                         new_steps.remove(temp)
                         new_steps.insert(number, temp.replace(item, substitutions[item])) 
                         temp = new_steps[number]
+                        num+=1
+            print("\n\tChanged " + str(num) + " steps in the recipe")
     return recipe
 
 def DoubleOrHalf (recipe, multiplier):
     # Input is a recipe and a multiplier, output is the recipe with each ingredient scalled by that multiplier
     # For example, if the multiplier is 2 each ingredient in the returned recipe will have double the quantity of the initial recipe
+    
+    print("\n*******************************")
+    print("\nYour differently sized recipe is coming right up!\n")
+
     for key, value in recipe['Recipe'].items():
         if key == 'Ingredients':
             for ing in value: #ing is type dict, value is type array
@@ -152,7 +165,7 @@ def DoubleOrHalf (recipe, multiplier):
                             ing['quantity'] = str(multiplier) + "*" + value1
 
 
-
+    #look at seconds, minutes, hrs and multilpy
                 #x = float(ing['quantity'])
                 #y = x * multiplier 
                 #ing['quantity'] = str(y)

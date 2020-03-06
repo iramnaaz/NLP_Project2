@@ -3,111 +3,6 @@ import random
 client = UsdaClient('rfMvRseGhasTej6Ogcpj5gxidNqUtckuXjJIcOcM')
 
 
-					
-# 	'Tools': ["knife", "tablespoon"], 
-
-# 	'Methods': {"Primary_cooking_method": ["grill"],
-# 				"alternative_cooking_method": ["grate", "heat", "slice", "cut"]},
-
-# 	'Steps': ['Preheat the oven to 350 degrees F (175 degrees C).',
-# 			  'Crumble the ground beef into a large cast-iron skillet over medium-high heat. Cook, stirring frequently, until beef is evenly brown.;',
-# 			  'Mix the package of cornbread mix according to the directions using the egg and milk. Spoon over the ground beef mixture, and spread evenly.',
-# 			  'Place the whole skillet in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
-# 			  ]
-# 	} 
-
-
-# VegetarianRecipe1 = {
-# 	'Ingredients': 
-# 		[{
-# 		'Name': 'butter',
-# 		'Quantity': 1,
-# 		'Measurement': "tablespoon", 
-# 		'Descriptor': "",
-# 		'Preparation': "",
-# 		'Tags': ""
-# 				},
-# 		{
-# 		'Name': 'onion',
-# 		'Quantity': 0.5,
-# 		'Measurement': "cup",
-# 		"Descriptor": "",
-# 		'Preparation':"sliced"
-# 				},
-# 	   {
-# 		'Name': 'garlic',
-# 		'Quantity': 2,
-# 		'Measurement': "cloves",
-# 		'Descriptor': "",
-# 		'Preparation': "minced",
-# 				}, 
-# 		],
-					
-# 	'Tools': ["knife", "tablespoon", "saucepan", "skillet"], 
-
-# 	'Methods': [""],
-
-# 	'Steps': {'Step 1': 'Preheat the oven to 375 degrees F (190 degrees C).',
-# 			  'Step 2': 'Melt butter in a saucepan over medium heat. Add garlic and onion; cook for a few minutes until fragrant, but not brown. Stir in spinach, and cook for about 5 more minutes. Remove from the heat, and mix in ricotta cheese, sour cream, and 1 cup of Monterey Jack cheese.',
-# 			  'Step 3': 'In a skillet over medium heat, warm tortillas one at a time until flexible, about 15 seconds. Spoon about 1/4 cup of the spinach mixture onto the center of each tortilla. Roll up, and place seam side down in a 9x13 inch baking dish. Pour enchilada sauce over the top, and sprinkle with the remaining cup of Monterey Jack.',
-# 			  'Step 4': 'Bake for 15 to 20 minutes in the preheated oven, until sauce is bubbling and cheese is lightly browned at the edges.'
-# 			  }
-# 	}
-
-# ExampleRecipe2 = {
-# 	'Ingredients': 
-# 		[{
-# 		'Name': 'Bread',
-# 		'Quantity': 1,
-# 		'Measurement': "pound", 
-# 		'Descriptor': "",
-# 		'Preparation': "",
-# 		'Tags': ""
-# 				},
-# 		{
-# 		'Name': 'mayo',
-# 		'Quantity': 0.5,
-# 		'Measurement': "",  
-# 		"Descriptor": "",
-# 		'Preparation':"chopped"
-# 				},
-# 	   {
-# 		'Name': 'butter',
-# 		'Quantity': 2,
-# 		'Measurement': "",
-# 		'Descriptor': "",
-# 		'Preparation': "cut",
-# 				}, 
-# 		{
-# 		'Name': 'oil',
-# 		'Quantity': 2,
-# 		'Measurement': "",
-# 		'Descriptor': "",
-# 		'Preparation': "cut",
-# 				},
-# 		{
-# 		'Name': 'rice',
-# 		'Quantity': 2,
-# 		'Measurement': "",
-# 		'Descriptor': "",
-# 		'Preparation': "cut",
-# 				}
-# 		],
-					
-# 	'Tools': ["knife", "tablespoon"], 
-
-# 	'Methods': [""],
-
-# 	'Steps': {'Step 1': 'Preheat the oven to 350 degrees F (175 degrees C).',
-# 			  'Step 2': 'Crumble the bread into a large cast-iron skillet over a bread of medium-high heat. Cook, stirring frequently, until mayo and butter are evenly brown.;',
-# 			  'Step 3': 'Mix the package of oil mix according to the directions using the egg and milk. Spoon over the oil mixture, and spread evenly.',
-# 			  'Step 4': 'Place the whole rice in the oven, and bake for 20 minutes, or until a toothpick inserted into the cornbread layer comes out clean. Cool for a few minutes before serving.'
-# 			  }
-# 	} 
-
-
-
-
 meats = ["beef", "meat", "pork", "chicken breast", "mutton thigh", "t-bone steak", "ground beef", "ham", "chicken", "bacon", "salami", "steak", "turkey", "duck", "lamb", "mutton", "duck", "veal", "sausage", "tilapia", "halibut", "cod", "salmon", "shrimp", "lobster", "crab", "catfish", "trout", "sardines", "tuna"]
 non_meat_subs = ["tofu", "tempeh", "seitan", "textured vegetable protein", "jackfruit", "mushroom", "lentils", "beans"]
 fish = ["tilapia", "halibut", "cod", "salmon", "shrimp", "lobster", "crab", "catfish", "trout", "sardines", "tuna"] 
@@ -119,6 +14,9 @@ joined_meats_w_fish = meats + fish
 #problem with usda text search: non-meat items can return meat items (see red bell peppers and onion)
 #include everything that is a string in the search? helps with onion but not red bell pepper
 def VegetarianTransformTo (recipe):
+	print("\n*******************************")
+	print("\nYour recipe with less meat is coming right up!\n")
+	print("Here are the transformations that were made to your recipe:")
 
 	new_steps = recipe['Recipe']['Steps']
 	my_sub = random.choice(non_meat_subs)
@@ -131,6 +29,8 @@ def VegetarianTransformTo (recipe):
 						if any(x in value1 for x in meats): #replace value1 with my_stirng if you want to use usda lib
 							#print(value1)
 							ing[key1] = my_sub
+							print("\n\tReplaced " + value1 + " with " + my_sub)
+		num = 0
 		if key == "Steps":
 			for step in new_steps:
 				#print(step)
@@ -147,6 +47,8 @@ def VegetarianTransformTo (recipe):
 						new_steps.remove(temp)
 						new_steps.insert(number, step.replace(x, my_sub))
 						temp = new_steps[number]
+						num += 1
+			print("\n\tChanged " + str(num) + " steps in the recipe")
 
 	#recipe['Recipe'].pop("Steps", None)
 	#print(new_steps)
@@ -155,6 +57,10 @@ def VegetarianTransformTo (recipe):
 	return recipe
 
 def PescatarianTransformTo (recipe):
+
+	print("\n*******************************")
+	print("\nYour recipe with less meat and more fish is coming right up!\n")
+	print("Here are the transformations that were made to your recipe:")
 
 	new_steps = recipe['Recipe']['Steps']
 	my_sub = random.choice(fish)
@@ -167,6 +73,8 @@ def PescatarianTransformTo (recipe):
 						if any(x in value1 for x in meats): #replace value1 with my_stirng if you want to use usda lib
 							#print(value1)
 							ing[key1] = my_sub
+							print("\n\tReplaced " + value1 + " with " + my_sub)
+		num = 0
 		if key == "Steps":
 			for step in new_steps:
 				#print(step)
@@ -183,6 +91,8 @@ def PescatarianTransformTo (recipe):
 						new_steps.remove(temp)
 						new_steps.insert(number, step.replace(x, my_sub))
 						temp = new_steps[number]
+
+			print("\n\tChanged " + str(num) + " steps in the recipe")
 
 	#recipe['Recipe'].pop("Steps", None)
 	#print(new_steps)
@@ -274,6 +184,9 @@ VegFrom = {"Recipe": {"Ingredients": [{"quantity": "1", "name": "long thin bague
 
 #fix steps part?
 def VegetarianTransformFrom (recipe):
+	print("\n*******************************")
+	print("\nYour recipe with more meat is coming right up!\n")
+	print("Here are the transformations that were made to your recipe:")
 
 	new_steps = recipe['Recipe']['Steps']
 	#Case I - no meat or meat subs are present
@@ -293,11 +206,14 @@ def VegetarianTransformFrom (recipe):
 								vegetarian = 0
 	#gotta add meat bc there are no meats and no non-meats
 	if vegetarian == 1: 
-		recipe['Recipe']['Ingredients'].append({'quantity': 1, 'measurement': "pound", 'name': my_meat})
+		recipe['Recipe']['Ingredients'].append({'quantity': '1', 'measurement': "pound", 'name': my_meat})
+		print("\n\tAdded " + my_meat + " to the list of ingredients")
+		recipe['Recipe']['Tools'].append('large cast-iron skillet')
+		print("\n\tAdded large-cast-iron skillet to the list of tools")
 		#new_steps = recipe['Recipe']['Steps']
-		new_steps.append ('Crumble the ' + my_meat +' into a large cast-iron skillet over medium-high heat. Stir frequently, until '+ my_meat +' is cooked well.;')
+		new_steps.append ('Crumble the ' + my_meat +' into a large cast-iron skillet over medium-high heat. Stir frequently, until '+ my_meat +' is cooked well.')
 		new_steps.append('Add the cooked ' + my_meat + ' to the rest of the dish.')
-
+		print('\n\tAdded 2 new steps to the recipe')
 	#Case II - meat subs are present and we need to replace with meat
 
 	for key, value in recipe['Recipe'].items():
@@ -314,6 +230,8 @@ def VegetarianTransformFrom (recipe):
 						if any(x in value1 for x in non_meat_subs): #replace value1 with my_stirng if you want to use usda lib
 							#print(value1)
 							ing[key1] = my_meat
+							print("\n\tReplaced " + value1 + " with " + my_meat)
+		num = 0
 		if key == "Steps":
 			for step in new_steps: #recipe['Recipe']['Steps']:
 				number = new_steps.index(step)
@@ -328,6 +246,9 @@ def VegetarianTransformFrom (recipe):
 						#step = step.replace(x, my_meat) 
 						new_steps.insert(number, step.replace(x, my_meat))
 						temp = new_steps[number]
+						num+=1
+			print("\n\tChanged " + str(num) + " steps in the recipe")
+
 
 	#recipe['Recipe'].pop("Steps", None)
 	recipe['Recipe']['Steps'] = new_steps
@@ -416,14 +337,11 @@ indian_subs = {
 	'salmon': 'shami kebab',
 	'sugar': 'cheenee sugar',
 	'salt': 'namak salt',
-	'vegetable oil': 'mustard oil',
-	'olive oil': 'mustard oil',
-	'canola oil': 'mustard oil',
 	'ranch': 'coriander chutney',
 	'chuck roast': 'lamb kebab',
 	'taco': 'roti',
 	'burrito': 'naan',
-	'sauce': 'chutney'
+	'sauce': 'chutney',
 
 }
 
@@ -553,9 +471,15 @@ def IndianTransformToV2 (recipe):
 
 def IndianTransform (recipe):
 	#PART 1
+
+	print("\n*******************************")
+	print("\nYour Indian recipe is coming right up!\n")
+	print("Here are the transformations that were made to your recipe:")
+
 	masala = random.choice(my_masalas)
 	if not "frying pan" in recipe['Recipe']['Tools']:
 		recipe['Recipe']['Tools'].append("frying pan")
+		print("\n\tAdded frying pan to the list of tools")
 
 	cooked_val = 0
 	new_steps = recipe['Recipe']['Steps']
@@ -571,6 +495,9 @@ def IndianTransform (recipe):
 								replacement = indian_subs[indian_item] #unhealthy item as a key
 								number = recipe['Recipe']['Ingredients'].index(ing)
 								recipe['Recipe']['Ingredients'][number][key1] = value1.replace(indian_item,replacement)
+								#print("\n\tAdded " + my_meat + " to the list of ingredients")
+								print("\n\tReplaced " + value1 + " in the list of ingredients with " + indian_subs[indian_item])
+		num = 0
 		if key == 'Steps':
 			for step in new_steps:
 				number = new_steps.index(step)
@@ -580,6 +507,8 @@ def IndianTransform (recipe):
 						new_steps.remove(temp)
 						new_steps.insert(number, temp.replace(item, indian_subs[item])) 
 						temp = new_steps[number]
+						num+=1
+			print("\n\tChanged " + str(num) + " steps in the recipe")
 
 
 
@@ -589,33 +518,52 @@ def IndianTransform (recipe):
 		if any (x in methods for x in cooking_methods):
 			cooked_val = 1
 	if cooked_val == 1:
-		recipe['Recipe']['Ingredients'].append({'quantity': 0.5,'measurement': "cup", 'name': masala})
+		recipe['Recipe']['Ingredients'].append({'quantity': '0.5','measurement': "cup", 'name': masala})
 		new_steps.append('Take the .5 cups of ' + masala + ' masala and pour into the frying pan. Fry over medium heat in 3 tablespoons of mustard oil for 10 minutes until browning occurs.') 
 		new_steps.append('When the ' + masala + ' masala is finished frying, mix it into the rest of the dish.')
+		print("\n\tAdded 2 new steps to the recipe")
 		if not "frying pan" in recipe['Recipe']['Tools']:
 			recipe['Recipe']['Tools'].append('frying pan')
+			print("\n\tAdded frying pan to the list of tools.")
 		if not "fry" in recipe['Recipe']['Methods']["alternative_cooking_method"]:
 			recipe['Recipe']['Methods']['alternative_cooking_method'].append('fry')
+			print("\n\tAdded 'fry' to the list of methods")
 	if cooked_val == 0:
-		recipe['Recipe']['Ingredients'].append({'name': masala, 'quantity': 0.5, 'measurement': "cup"})
-		recipe['Recipe']['Ingredients'].append({'name': "Kabuli chana", 'Quantity': 1, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+		recipe['Recipe']['Ingredients'].append({'name': masala, 'quantity': '0.5', 'measurement': "cup"})
+		print("\n\tAdded " + masala + " to the list of ingredients")
+		recipe['Recipe']['Ingredients'].append({'name': "Kabuli chana", 'Quantity': '1', 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
+		print("\n\tAdded Kabuli chana to the list of ingredients")
 		#recipe['Ingredients'].append({'Name': "tomato ", 'Quantity': 1, 'Measurement': "cup", 'Descriptor': "", 'Preparation': ""})
 		if not "boiling pot" in recipe['Recipe']['Tools']:
 			recipe['Recipe']['Tools'].append("boiling pot")
+			print("\n\tAdded boiling pot to the list of tools")
 		if not "bowl" in recipe['Recipe']['Tools']:
 			recipe['Recipe']['Tools'].append("bowl")
+			print("\n\tAdded bowl to the list of tools")
 		if not "frying pan" in recipe['Recipe']['Tools']:
 			recipe['Recipe']['Tools'].append("frying pan")
+			print("\n\tAdded frying pan to the list of tools")
 		if not "wooden cooking spoon" in recipe['Recipe']['Tools']:
 			recipe['Recipe']['Tools'].append("wooden cooking spoon")
+			print("\n\tAdded wooden cooking spoon to the list of tools")
 		if not "fry" in recipe['Recipe']['Methods']["alternative_cooking_method"]:
-			recipe['Recipe']['Tools'].append("fry")
-		if not "mustard oil" in recipe['Recipe']['Tools']:
-			recipe['Recipe']['Ingredients'].append({'Name': "Mustard Oil", 'Quantity': 3, 'Measurement': "tablespoon", 'Descriptor': "", 'Preparation': ""})
+			recipe['Recipe']['Methods']['alternative_cooking_method'].append("fry")
+			print("\n\tAdded 'fry' to the list of alternative cooking methods")
+		#if not "mustard oil" in recipe['Recipe']['Ingredients']:
+		num = 0
+		for ing in recipe['Recipe']['Ingredients']:
+			for key1, value1 in ing.items():
+				if key1 == "name":
+					if "mustard oil" == value1:
+						num = 1
+		if num == 0:
+			recipe['Recipe']['Ingredients'].append({'quantity': '3', 'measurement': "tablespoon", 'name': "mustard oil"})
+			print("\n\tAdded mustard oil to the list of ingredients")
 		#prev_steps = recipe['Recipe']['Steps']
 		new_steps.append('Boil 1 cup of Kabuli chana over medium-high heat for 10 minutes. Once cooked, remove Kabuli chana from the pot and place into a bowl.')
 		new_steps.append('Take the .5 cups of ' +  masala + ' and pour into the frying pan. Fry over medium heat in 3 tablespoons of mustard oil for 10 minutes until browning occurs.')
 		new_steps.append('Pour the fried Garam Masala mix into the bowl with the Kabuli channa and use the wooden spoon to mix together. Mix the Kabuli chana with the rest of your dish and enjoy!')
+		print("\n\tAdded 3 new steps to the recipe")
 
 	#print(recipe['Recipe']['Steps'])
 	#recipe['Recipe'].pop("Steps", None)
