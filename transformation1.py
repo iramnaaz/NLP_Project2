@@ -148,7 +148,7 @@ def PescatarianTransformFrom (recipe):
 									vegetarian = 0
 		#gotta add meat bc there is on if
 		if vegetarian == 1: 
-			recipe['Recipe']['Ingredients'].append({'quantity': 1, 'measurement': "pound", 'name': my_sub})
+			recipe['Recipe']['Ingredients'].append({'quantity': '1', 'measurement': "pound", 'name': my_sub})
 			#new_steps = recipe['Recipe']['Steps']
 			new_steps.append ('Crumble the ' + my_sub +' into a large cast-iron skillet over medium-high heat. Stir frequently, until '+ my_sub +' is cooked well.;')
 			new_steps.append('Add the cooked ' + my_sub + ' to the rest of the dish.')
