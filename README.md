@@ -30,7 +30,7 @@ We then created the parsers for ingredients, tools, methods, nutrients and steps
 Transformations:
 We have given the following options to a user to choose from:
 
-Transform to Vegetarian, Transform to Non-Vegetarian, Transform to Healthy, Transform to Chinese,Transform to Indian, Scale by a Multiplier.
+Transform to Vegetarian, Transform to Non-Vegetarian, Transform to Healthy, Transform to Chinese,Transform to Indian, Scale by a Multiplier, Transform to Gluten-Free, Transform to Vegan, Transform to Pescatarian, Transform from Pescatarian
 
 Main program:
 The main file has a user interface that allows the user to determine what the program should do. It call methods in transform and parse to get the recipes/data and print out the recipe(s) in a human-friendly format (to the console).
