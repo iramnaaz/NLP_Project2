@@ -23,7 +23,7 @@ substitutions = {
     'flour': 'whole wheat flour',
     'ground beef': 'ground turkey',
     'bread': 'whole wheat bread',
-    'sugar': 'artificial sweetner',
+    'sugar': 'stevia',
     'potato': 'cauliflower',
     'mayonnaise': 'hummus',
     'mayo': 'hummus',
@@ -46,7 +46,7 @@ substitutions = {
     'butter': 'low-fat greek yogurt',
     'biscuit': "granola",
     'salt': "garlic",
-    'namak': "garlic"
+    'namak': "garlic",
 
 
 
@@ -54,59 +54,60 @@ substitutions = {
 
 }
 
-ExampleRecipe = {
-    'Ingredients':
-        [{
-        'Name': 'chicken',
-        'Quantity': 4,
-        'Measurement': 'pound',
-        'Descriptor': '',
-        'Preparation':'cut into pieces',
-        'Tags': ''
-        },
-        {
-        'Name': 'buttermilk',
-        'Quantity': 1,
-        'Measurement': 'cups',
-        'Descriptor': '',
-        'Preparation':'',
-        'Tags': ''
-        },
-        {
-        'Name': 'all-purpose flour',
-        'Quantity': 2,
-        'Measurement': 'cups',
-        'Descriptor': '',
-        'Preparation':'',
-        'Tags': ''
-        },
-        {
-        'Name': 'paprika',
-        'Quantity': 1,
-        'Measurement': 'teaspoon',
-        'Descriptor': '',
-        'Preparation':'',
-        'Tags': ''
-        },
-        {
-        'Name': 'vegetable oil',
-        'Quantity': 2,
-        'Measurement': 'quarts',
-        'Descriptor': '',
-        'Preparation':'',
-        'Tags': ''
-        }
-        ],
-        'Tools': ['plastic bag', 'knife', 'teaspoon'],
-        'Methods': [''],
+substitutions1 = {
+	
 
-        'Steps':
-            {'Step 1': 'Take your cut up chicken pieces and skin them if you prefer. Put the flour in a large plastic bag (let the amount of chicken you are cooking dictate the amount of flour you use). Season the flour with paprika, salt and pepper to taste (paprika helps to brown the chicken).',
-            'Step 2': 'Dip chicken pieces in buttermilk then, a few at a time, put them in the bag with the flour, seal the bag and shake to coat well. Place the coated chicken on a cookie sheet or tray, and cover with a clean dish towel or waxed paper. LET SIT UNTIL THE FLOUR IS OF A PASTE-LIKE CONSISTENCY. THIS IS CRUCIAL!',
-            'Step 3': 'Fill a large skillet (cast iron is best) about 1/3 to 1/2 full with vegetable oil. Heat until VERY hot. Put in as many chicken pieces as the skillet can hold. Brown the chicken in HOT oil on both sides. When browned, reduce heat and cover skillet; let cook for 30 minutes (the chicken will be cooked through but not crispy). Remove cover, raise heat again and continue to fry until crispy.',
-            'Step 4': 'Drain the fried chicken on paper towels. Depending on how much chicken you have, you may have to fry in a few shifts. Keep the finished chicken in a slightly warm oven while preparing the rest.'
-            }
+	'lettuce': 'butter arugula',
+	'tomato': 'potato',
+	'apple': 'pineapple',
+	'peach': 'mango',
+	'orange': 'mango',
+	'cantaloupe': "watermelon",
+	'kiwi': 'watermelon',
+	'bread': 'white bread',
+	'toast': 'texas toast',
+	'chicken': 'beef',
+	'turkey': 'salami',
+	'wheat bread': 'buttered bun',
+	'milk': 'whole milk',
+	'bacon': 'smoked bacon',
+	'pancake': 'chocolate chip pancake',
+	'egg': 'egg yolk',
+	'butter': 'salted butter',
+	'skim milk': 'whole milk',
+	'chocolate': 'milk chocolate',
+	'rice': 'white rice',
+	'cream': 'heavy whipping cream',
+	'flour': 'high gluten flour',
+	'cauliflower': 'potato',
+	'cabbage': 'corn',
+	'oil' : 'canola oil',
+	'strawberry': 'jam',
+	'breast': 'thigh',
+	'nut': 'crouton',
+	'guacamole': 'dressing',
+	'chips': 'fries',
+	'beef': 'corned beef',
+	'pheasant': 'duck',
+	'lamb': 'ham',
+	'veal': 'prosciutto',
+	'yogurt': 'creamy yogurt',
+	'sugar': 'white sugar',
+	'honey': 'raw sugar',
+	'syrup': 'white sugar',
+	'onion': 'onion ring',
+	'cheese': 'sweetened cottage cheese',
+	'pepper': 'hot pepper',
+
+
+
+
+
+
+
 }
+
+
 
 def HealthyTransformTo (recipe):
 
@@ -144,6 +145,40 @@ def HealthyTransformTo (recipe):
                         num+=1
             print("\n\tChanged " + str(num) + " steps in the recipe")
     return recipe
+
+def UnhealthyTransform (recipe):
+
+	print("\n*******************************")
+	print("\nYour unhealthy recipe is coming right up!\n")
+	print("Here are the transformations that were made to your recipe:")
+	healthy = substitutions1.keys()
+	new_steps = recipe['Recipe']['Steps']
+	for key, value in recipe['Recipe'].items():
+		if key == 'Ingredients':
+			for ing in value: # ing being the ingredient object
+				for key1, value1 in ing.items():
+					if key1 == 'name':
+						for healthy_item in healthy:
+							if healthy_item in value1: #item-> unhealthy item, value1-> name of ing
+								replacement = substitutions1[healthy_item] #unhealthy item as a key
+								number = recipe['Recipe']['Ingredients'].index(ing)
+								recipe['Recipe']['Ingredients'][number][key1] = value1.replace(healthy_item,replacement)
+								print("\n\tReplaced " + value1 + " with " + substitutions1[healthy_item])
+		if key == 'Steps':
+			num = 0
+			for step in new_steps:
+				number = new_steps.index(step)
+				temp = step
+				for item in healthy:
+					if item in step:
+						new_steps.remove(temp)
+						new_steps.insert(number, temp.replace(item, substitutions1[item])) 
+						temp = new_steps[number]
+						num+=1
+			print("\n\tChanged " + str(num) + " steps in the recipe")
+
+	return recipe
+
 
 def DoubleOrHalf (recipe, multiplier):
     # Input is a recipe and a multiplier, output is the recipe with each ingredient scalled by that multiplier

@@ -32,6 +32,7 @@ else:
 		print("8. Transform recipe from pescatarian")
 		print("9. Transform recipe into vegan")
 		print("10. Transform recipe into gluten-free")
+		print("11. Transform into a unhealthy version")
 		choice = input()
 		if choice == '0':
 			break
@@ -1013,6 +1014,103 @@ else:
 
 			with open('gluten_free_recipe.json', 'w') as outfile:
 				json.dump(GlutenFreeRecipe, outfile)
+			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
+			print("1. Continue transforming the recipe.")
+			print("2. Start from scratch with a new recipe.")
+			my_choice = input()
+			if my_choice == '2':
+				print("\nPlease press 0 when prompted for a transformation and then run 'python3 main_file.py' again in your command line.")
+		elif choice == '11':
+			print("\n")
+			print("Original Recipe: \n")
+			print(recipe)
+
+			print("\nSee below for a human-readable format of your original recipe:\n")
+			for key, value in recipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+			UnhealthyRecipe = UnhealthyTransform(recipe)
+			print('\n')
+			print("Unhealthy Transformation: \n")
+			print(UnhealthyRecipe)
+			print("\nYou can also see unhealthy_recipe.json for the transformed recipe.")
+
+			print("\nSee below for a human-readable version of your gluten-free recipe:\n")
+
+
+			for key, value in UnhealthyRecipe['Recipe'].items():
+				if key == "Ingredients":
+					print("Ingredients: ")
+					num = 1
+					for ing in value:
+						print("\t" + str(num) + ". ")
+						for key1, value1 in ing.items():
+							print("\t\t"+ key1 + ": " + value1)
+						num += 1
+				if key == "Tools":
+					print("Tools: ")
+					num = 1
+					for tool in value:
+						print("\t" + str(num) + ". " + tool)
+						num+=1
+				if key == "Methods":
+					print("Methods: ")
+					num1=1
+					num2=1
+					for key1, value1 in value.items():
+						if key1 == 'Primary_cooking_method':
+							print("\tPrimary cooking method: ")
+							for method in value1:
+								print("\t\t" + str(num1) + ". " + method)
+								num1 += 1
+						if key1 == 'alternative_cooking_method': 
+							print("\tAlternative cooking methods: ")
+							for method in value1:
+								print("\t\t" + str(num2) + ". " + method)
+								num2 += 1
+				if key == "Steps":
+					print("Steps: ")
+					num = 1
+					for step in value:
+						print("\t" + str(num) + ". " + step + '\n')
+						num += 1
+
+			with open('unhealthy_recipe.json', 'w') as outfile:
+				json.dump(UnhealthyRecipe, outfile)
 			print('\nPlease choose how you would like to proceed by entering the appropriate number:')
 			print("1. Continue transforming the recipe.")
 			print("2. Start from scratch with a new recipe.")
