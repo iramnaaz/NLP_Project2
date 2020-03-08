@@ -18,6 +18,7 @@ Menu
 -> Transform to Vegetarian
 -> Transform to Non-Vegetarian
 -> Transform to Healthy
+-> Transform to Unhealthy
 -> Transform to Chinese
 -> Transform to Indian
 -> Scale by a multiplier
